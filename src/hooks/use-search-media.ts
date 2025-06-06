@@ -1,6 +1,7 @@
 import { Media } from "@/entities/media";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { favoritesApi, watchesApi } from "@/services/api-client";
 
 const useSearchMedia = (query: string, media_type: string) => {
   const options = {
@@ -20,7 +21,7 @@ const useSearchMedia = (query: string, media_type: string) => {
       const response = await axios.request(options);
 
       if (response && response.data.results) {
-        const results = response.data.results.map(
+        const mediaItems = response.data.results.map(
           (item: any): Media => ({
             id: item.id,
             name: item.title || item.name,
@@ -28,11 +29,18 @@ const useSearchMedia = (query: string, media_type: string) => {
             vote_average: item.vote_average,
             vote_count: item.vote_count,
             media_type: media_type,
+            isFavorite: false,
+            isWatched: false,
           })
         );
 
-        results.sort((a, b) => b.vote_count - a.vote_count);
+        mediaItems.sort((a, b) => b.vote_count - a.vote_count);
 
+        // Check for both favorites and watched status
+        const favoritesResults = await favoritesApi.findAllFavorites(
+          mediaItems
+        );
+        const results = await watchesApi.findAllWatches(favoritesResults);
         return results;
       }
 

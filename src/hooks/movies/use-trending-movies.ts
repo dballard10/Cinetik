@@ -1,6 +1,7 @@
 import { Media } from "@/entities/media";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { favoritesApi, watchesApi } from "@/services/api-client";
 
 const useTrendingMovies = () => {
   const options = {
@@ -20,15 +21,24 @@ const useTrendingMovies = () => {
       const response = await axios.request(options);
 
       if (response && response.data.results) {
-        return response.data.results.map(
+        const mediaItems = response.data.results.map(
           (item: any): Media => ({
             id: item.id,
             name: item.name || item.title,
             backdrop_path: item.backdrop_path,
             vote_average: item.vote_average,
             media_type: "movie",
+            isFavorite: false,
+            isWatched: false,
           })
         );
+
+        // Check for both favorites and watched status
+        const favoritesResults = await favoritesApi.findAllFavorites(
+          mediaItems
+        );
+        const results = await watchesApi.findAllWatches(favoritesResults);
+        return results;
       }
 
       throw new Error("Invalid response from API");

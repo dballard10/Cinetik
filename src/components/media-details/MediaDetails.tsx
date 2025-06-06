@@ -26,8 +26,8 @@ const MediaDetails = ({ title }: { title: string }) => {
           </div>
           <div className="flex gap-2">
             <Rating rating={selectedShow.vote_average} />
-            <WatchedButton showId={selectedShow.id} />
-            <FavoritesButton showId={selectedShow.id} />
+            <WatchedButton media={selectedShow} />
+            <FavoritesButton media={selectedShow} />
           </div>
         </div>
         <Overview overview={selectedShow.overview} />

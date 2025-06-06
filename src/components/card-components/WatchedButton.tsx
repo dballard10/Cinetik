@@ -1,48 +1,83 @@
 import { useState } from "react";
-import { TbEyePlus, TbEyeX, TbEye, TbEyeFilled } from "react-icons/tb";
+import { TbEyePlus, TbEyeFilled } from "react-icons/tb";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { Media } from "@/entities/media";
+import { watchesApi } from "@/services/api-client";
 
 interface WatchedButtonProps {
-  showId: number;
-  initialState?: boolean;
-  onToggle?: (showId: number, isWatched: boolean) => void;
+  media: Media;
 }
 
-const WatchedButton = ({
-  showId,
-  initialState = false,
-  onToggle,
-}: WatchedButtonProps) => {
-  const [isWatched, setIsWatched] = useState(initialState);
-  const [isHovering, setIsHovering] = useState(false);
+const WatchedButton = ({ media }: WatchedButtonProps) => {
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleClick = () => {
-    const newState = !isWatched;
-    setIsWatched(newState);
-    onToggle?.(showId, newState);
+  console.log(
+    "👁️ Title: ",
+    media?.name,
+    "| ID: ",
+    media?.id,
+    "| Is Watched: ",
+    media?.isWatched
+  );
+
+  if (!media) {
+    console.log("👁️: No media provided - returning null");
+    return null;
+  }
+
+  const handleClick = async () => {
+    if (isLoading) return;
+
+    setIsLoading(true);
+
+    try {
+      const newWatchStatus = !media.isWatched;
+
+      console.log(
+        "👁️ Watched Button Clicked: New watched status:",
+        newWatchStatus
+      );
+
+      if (newWatchStatus) {
+        // Adding to watched
+        await watchesApi.addWatch(media);
+      } else {
+        // Removing from watched
+        await watchesApi.removeWatch(media.id);
+      }
+
+      // Update the media object after successful API call
+      media.isWatched = newWatchStatus;
+    } catch (error) {
+      console.error("Error updating watch status:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  const buttonTitle = media.isWatched
+    ? "Remove from watched"
+    : "Add to watched";
 
   return (
     <motion.button
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
       onClick={handleClick}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
-      title={isWatched ? "Remove from watched" : "Add to watched"}
+      disabled={isLoading}
+      title={buttonTitle}
       className={cn(
         "transition-all duration-300 p-3 rounded-full",
         "hover:bg-blue-500/20",
-        "group"
+        "group",
+        isLoading && "opacity-50 cursor-not-allowed"
       )}
     >
-      {isWatched ? (
-        <TbEyeFilled className="w-6 h-6 text-blue-500 transition-all duration-300" />
-      ) : isHovering ? (
-        <TbEyePlus className="w-6 h-6 text-gray-700 group-hover:text-blue-500 transition-all duration-300" />
+      {media.isWatched ? (
+        <TbEyeFilled className="w-6 h-6 text-blue-400 transition-all duration-300" />
       ) : (
-        <TbEye className="w-6 h-6 text-gray-700 group-hover:text-blue-500 transition-all duration-300" />
+        <TbEyePlus className="w-6 h-6 text-gray-700 group-hover:text-blue-400 transition-all duration-300" />
       )}
     </motion.button>
   );

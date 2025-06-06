@@ -43,7 +43,7 @@ const UserFavoriteItem = ({ show }: UserFavoriteItemProps) => {
           )}
         </div>
         <div className="flex justify-end">
-          <FavoritesButton showId={show.id} initialState={true} />
+          <FavoritesButton media={show} />
         </div>
       </div>
     </div>

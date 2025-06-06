@@ -6,6 +6,8 @@ export interface Media {
   vote_count?: number;
   media_type: string;
   release_date?: string;
+  isFavorite: boolean;
+  isWatched: boolean;
 }
 
 export interface MediaDetails extends Media {

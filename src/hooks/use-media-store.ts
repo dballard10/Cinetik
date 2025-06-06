@@ -11,6 +11,8 @@ interface MediaState {
     vote_average: number;
     media_type: "tv" | "movie";
     release_date: string;
+    isFavorite: boolean;
+    isWatched: boolean;
     runtime: number;
     genres: { id: number; name: string }[];
     production_companies: { id: number; name: string }[];
@@ -57,6 +59,8 @@ const useMediaStore = create<MediaState>()((set) => ({
     vote_average: 0,
     media_type: "tv",
     release_date: "",
+    isFavorite: false,
+    isWatched: false,
     runtime: 0,
     genres: [],
     production_companies: [],
@@ -90,6 +94,8 @@ const useMediaStore = create<MediaState>()((set) => ({
         vote_average: 0,
         media_type: "tv",
         release_date: "",
+        isFavorite: false,
+        isWatched: false,
         runtime: 0,
         genres: [],
         production_companies: [],

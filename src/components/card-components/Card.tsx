@@ -5,12 +5,15 @@ import MediaType from "./MediaType";
 import useMediaStore from "@/hooks/use-media-store";
 import useMediaDetails from "@/hooks/media-details/use-media-details";
 import WatchedButton from "./WatchedButton";
+import { Media } from "@/entities/media";
 
 interface CardProps {
   id: number;
   name: string;
   backdrop_path: string;
   media_type: string;
+  isFavorite?: boolean;
+  isWatched?: boolean;
 }
 
 const Card = ({
@@ -18,6 +21,8 @@ const Card = ({
   name,
   backdrop_path,
   media_type: rawMediaType,
+  isFavorite,
+  isWatched,
 }: CardProps) => {
   const setSelectedShow = useMediaStore((state) => state.setSelectedShow);
 
@@ -25,12 +30,23 @@ const Card = ({
     ? (rawMediaType as "tv" | "movie")
     : "movie";
 
-  const { data: showData, isLoading, error } = useMediaDetails(id, media_type);
+  const { data: content, isLoading, error } = useMediaDetails(id, media_type);
 
   const handleCardClick = () => {
-    if (!isLoading && !error && showData) {
-      setSelectedShow(showData as any);
+    if (!isLoading && !error && content) {
+      setSelectedShow(content as any);
     }
+  };
+
+  // Create a proper Media object for the buttons with the correct props
+  const mediaForButtons: Media = {
+    id,
+    name,
+    backdrop_path,
+    media_type,
+    isFavorite: isFavorite || false,
+    isWatched: isWatched || false,
+    vote_average: content?.vote_average || 0,
   };
 
   return (
@@ -42,11 +58,19 @@ const Card = ({
         media_type={media_type}
         handleCardClick={handleCardClick}
       />
-      <div className="absolute top-2 left-2 z-10 opacity-0 rounded-full bg-black/70 shadow group-hover:opacity-100 transition-opacity duration-300">
-        <WatchedButton showId={id} />
+      <div
+        className={`absolute top-2 left-2 z-10 rounded-full transition-opacity duration-300 ${
+          isWatched ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+        } ${isWatched ? "" : "group-hover:bg-black/70 group-hover:shadow"}`}
+      >
+        <WatchedButton media={mediaForButtons} />
       </div>
-      <div className="absolute top-2 right-2 z-10 opacity-0 rounded-full bg-black/70 shadow group-hover:opacity-100 transition-opacity duration-300">
-        <FavoritesButton showId={id} />
+      <div
+        className={`absolute top-2 right-2 z-10 rounded-full transition-opacity duration-300 ${
+          isFavorite ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+        } ${isFavorite ? "" : "group-hover:bg-black/70 group-hover:shadow"}`}
+      >
+        <FavoritesButton media={mediaForButtons} />
       </div>
       <div className="absolute inset-0 flex items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
         <div className="w-full p-2 bg-black bg-opacity-80">
