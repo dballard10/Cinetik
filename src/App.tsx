@@ -11,6 +11,7 @@ import ContentPage from "./pages/ContentPage";
 import NotificationsPage from "./pages/NotificationsPage";
 import ProfilePage from "./pages/ProfilePage";
 import FriendsPage from "./pages/FriendsPage";
+import FriendProfilePage from "./pages/FriendProfilePage";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,10 @@ const App = () => (
           <Route path="/media/:id" element={<MediaDetailsPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/friends" element={<FriendsPage />} />
+          <Route
+            path="/friends/:username"
+            element={<FriendProfilePage username="username" />}
+          />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
