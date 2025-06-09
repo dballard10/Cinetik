@@ -6,6 +6,7 @@ import { TbPencil } from "react-icons/tb";
 import UserFavorites from "@/components/profile/UserFavorites";
 import { favoritesApi } from "@/services/api-client";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 // Temporary mock data for user and favorites
 const mockUser = {
@@ -17,7 +18,7 @@ const mockUser = {
 
 const ProfilePage = () => {
   const [isEditing, setIsEditing] = useState(false);
-
+  const navigate = useNavigate();
   // Get real favorites count
   const { data: favoritesData } = useQuery({
     queryKey: ["favorites-count"],
@@ -93,7 +94,12 @@ const ProfilePage = () => {
               <Card className="p-6 bg-gray-800/50 backdrop-blur-md rounded-xl shadow-2xl border border-gray-700/50">
                 <div className="flex justify-between items-center mb-4">
                   <h3 className="text-2xl font-bold">Favorite Shows</h3>
-                  <button className="text-sm bg-purple-600 hover:bg-purple-700 px-3 py-1 rounded-full transition-colors">
+                  <button
+                    onClick={() => {
+                      navigate("/library");
+                    }}
+                    className="text-sm bg-purple-600 hover:bg-purple-700 px-3 py-1 rounded-full transition-colors"
+                  >
                     View All
                   </button>
                 </div>

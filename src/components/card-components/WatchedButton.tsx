@@ -68,16 +68,17 @@ const WatchedButton = ({ media }: WatchedButtonProps) => {
       disabled={isLoading}
       title={buttonTitle}
       className={cn(
-        "transition-all duration-300 p-3 rounded-full",
+        "relative transition-all duration-300 p-3 rounded-full",
         "hover:bg-blue-500/20",
         "group",
         isLoading && "opacity-50 cursor-not-allowed"
       )}
     >
+      <TbEyeFilled className="absolute w-7 h-7 text-black transition-all duration-300 -translate-x-0.5 -translate-y-0.5 opacity-20" />
       {media.isWatched ? (
-        <TbEyeFilled className="w-6 h-6 text-blue-400 transition-all duration-300" />
+        <TbEyeFilled className="relative w-6 h-6 text-blue-400 transition-all duration-300" />
       ) : (
-        <TbEyePlus className="w-6 h-6 text-gray-700 group-hover:text-blue-400 transition-all duration-300" />
+        <TbEyePlus className="relative w-6 h-6 group-hover:text-blue-400 transition-all duration-300" />
       )}
     </motion.button>
   );

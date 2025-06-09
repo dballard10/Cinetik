@@ -61,14 +61,14 @@ const Card = ({
       <div
         className={`absolute top-2 left-2 z-10 rounded-full transition-opacity duration-300 ${
           isWatched ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-        } ${isWatched ? "" : "group-hover:bg-black/70 group-hover:shadow"}`}
+        } ${isWatched ? "" : "group-hover:shadow"}`}
       >
         <WatchedButton media={mediaForButtons} />
       </div>
       <div
         className={`absolute top-2 right-2 z-10 rounded-full transition-opacity duration-300 ${
           isFavorite ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-        } ${isFavorite ? "" : "group-hover:bg-black/70 group-hover:shadow"}`}
+        } ${isFavorite ? "" : "group-hover:shadow"}`}
       >
         <FavoritesButton media={mediaForButtons} />
       </div>

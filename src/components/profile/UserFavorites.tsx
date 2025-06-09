@@ -1,13 +1,9 @@
 import { Media } from "@/entities/media";
-import FavoritesButton from "../card-components/FavoritesButton";
-import { Link } from "react-router-dom";
-import defaultImage from "@/assets/cinetik-logo.webp";
 import { favoritesApi, watchesApi } from "@/services/api-client";
 import { useQuery } from "@tanstack/react-query";
+import UserFavoritesCard from "./UserFavoritesCard";
 
 const UserFavorites = () => {
-  const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
-
   const {
     data: favorites,
     isLoading,
@@ -66,42 +62,15 @@ const UserFavorites = () => {
       {favorites && favorites.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {favorites.slice(0, 4).map((show: Media) => (
-            <div
+            <UserFavoritesCard
               key={show.id}
-              className="flex bg-gray-700/30 rounded-lg overflow-hidden hover:bg-gray-700/50 transition-colors"
-            >
-              <div className="w-1/3">
-                <Link to={`/media/${show.id}`}>
-                  <img
-                    src={
-                      show.backdrop_path
-                        ? `${IMAGE_BASE_URL}${show.backdrop_path}`
-                        : defaultImage
-                    }
-                    alt={show.name}
-                    className="w-full h-full object-cover"
-                  />
-                </Link>
-              </div>
-              <div className="w-2/3 p-3 flex flex-col justify-between">
-                <div>
-                  <Link
-                    to={`/media/${show.id}`}
-                    className="hover:text-purple-400 transition-colors"
-                  >
-                    <h4 className="font-semibold line-clamp-1">{show.name}</h4>
-                  </Link>
-                  {show.media_type && (
-                    <p className="text-xs text-gray-400 mt-1 capitalize">
-                      {show.media_type === "tv" ? "TV Show" : "Movie"}
-                    </p>
-                  )}
-                </div>
-                <div className="flex justify-end">
-                  <FavoritesButton media={show} />
-                </div>
-              </div>
-            </div>
+              id={show.id}
+              name={show.name}
+              backdrop_path={show.backdrop_path}
+              media_type={show.media_type}
+              isFavorite={true}
+              isWatched={false}
+            />
           ))}
         </div>
       ) : (

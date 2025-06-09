@@ -68,16 +68,20 @@ const FavoritesButton = ({ media }: FavoritesButtonProps) => {
       disabled={isLoading}
       title={buttonTitle}
       className={cn(
-        "transition-all duration-300 p-3 rounded-full",
+        "relative transition-all duration-300 p-3 rounded-full",
         "hover:bg-purple-500/20",
         "group",
         isLoading && "opacity-50 cursor-not-allowed"
       )}
     >
+      {/* Black outline star - positioned behind */}
+      <TbStarFilled className="absolute w-7 h-7 text-black transition-all duration-300 -translate-x-0.5 -translate-y-0.5 opacity-20" />
+
+      {/* Main star - positioned on top */}
       {media.isFavorite ? (
-        <TbStarFilled className="w-6 h-6 text-purple-400 transition-all duration-300" />
+        <TbStarFilled className="relative w-6 h-6 text-purple-400 transition-all duration-300" />
       ) : (
-        <TbStar className="w-6 h-6 text-gray-700 group-hover:text-purple-400 transition-all duration-300" />
+        <TbStar className="relative w-6 h-6 text-gray-700 group-hover:text-purple-400 transition-all duration-300" />
       )}
     </motion.button>
   );
