@@ -2,16 +2,16 @@ import { Media } from "@/entities/media";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { favoritesApi, watchesApi } from "@/services/api-client";
-import useMediaStore from "./use-media-store";
+import { usePaginationStore } from "./use-pagination-store";
 
 const useSearchMedia = (query: string, media_type: string) => {
-  const { currentPage } = useMediaStore();
+  const { searchPage } = usePaginationStore();
 
   const options = {
     method: "GET",
     url: `${
       import.meta.env.VITE_TMDB_BASE_URL
-    }/search/${media_type}?query=${query}&include_adult=false&language=en-US&page=${currentPage}`,
+    }/search/${media_type}?query=${query}&include_adult=false&language=en-US&page=${searchPage}`,
     headers: {
       accept: "application/json",
       Authorization: `Bearer ${import.meta.env.VITE_TMDB_READ_ACCESS_TOKEN}`,
@@ -19,7 +19,7 @@ const useSearchMedia = (query: string, media_type: string) => {
   };
 
   return useQuery({
-    queryKey: ["search-media", query, media_type, currentPage],
+    queryKey: ["search-media", query, media_type, searchPage],
     queryFn: async () => {
       const response = await axios.request(options);
 

@@ -1,15 +1,17 @@
-import useMediaStore from "@/hooks/use-media-store";
 import { cn } from "@/lib/utils";
 import { TbChevronLeft } from "react-icons/tb";
 
-const PrevPageButton = () => {
-  const { currentPage, setCurrentPage } = useMediaStore();
+interface PrevPageButtonProps {
+  page: number;
+  setPage: (page: number) => void;
+}
 
+const PrevPageButton = ({ page, setPage }: PrevPageButtonProps) => {
   const handleClick = () => {
-    setCurrentPage(currentPage - 1);
+    setPage(page - 1);
   };
 
-  const isDisabled = currentPage === 1;
+  const isDisabled = page === 1;
 
   return (
     <button

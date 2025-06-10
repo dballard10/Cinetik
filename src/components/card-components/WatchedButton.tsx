@@ -59,7 +59,7 @@ const WatchedButton = ({ media }: WatchedButtonProps) => {
         isLoading && "opacity-50 cursor-not-allowed"
       )}
     >
-      <TbEyeFilled className="absolute w-7 h-7 text-black transition-all duration-300 -translate-x-0.5 -translate-y-0.5 opacity-20" />
+      {/* <TbEyeFilled className="absolute w-7 h-7 text-black transition-all duration-300 -translate-x-0.5 -translate-y-0.5 opacity-20" /> */}
       {media.isWatched ? (
         <TbEyeFilled className="relative w-6 h-6 text-blue-400 transition-all duration-300" />
       ) : (

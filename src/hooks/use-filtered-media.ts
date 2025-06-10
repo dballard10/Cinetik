@@ -2,7 +2,7 @@ import { Media } from "@/entities/media";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { favoritesApi, watchesApi } from "@/services/api-client";
-import useMediaStore from "./use-media-store";
+import { usePaginationStore } from "./use-pagination-store";
 
 const useFilteredMedia = (
   genre_list: string,
@@ -10,7 +10,7 @@ const useFilteredMedia = (
   sort_by: string,
   media_type: string
 ) => {
-  const { currentPage } = useMediaStore();
+  const { filteredPage } = usePaginationStore();
 
   const sort_by_query = `sort_by=${sort_by}`;
   const genre_query = `with_genres=${genre_list}`;
@@ -25,7 +25,7 @@ const useFilteredMedia = (
     method: "GET",
     url: `${
       import.meta.env.VITE_TMDB_BASE_URL
-    }/discover/${media_type}?include_adult=false&include_video=false&language=en-US&page=${currentPage}${query}`,
+    }/discover/${media_type}?include_adult=false&include_video=false&language=en-US&page=${filteredPage}${query}`,
     headers: {
       accept: "application/json",
       Authorization: `Bearer ${import.meta.env.VITE_TMDB_READ_ACCESS_TOKEN}`,
@@ -38,7 +38,7 @@ const useFilteredMedia = (
       genre_list,
       platform_list,
       sort_by,
-      currentPage,
+      filteredPage,
     ],
     queryFn: async () => {
       const response = await axios.request(options);

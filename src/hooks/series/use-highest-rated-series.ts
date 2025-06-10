@@ -2,16 +2,16 @@ import { Media } from "@/entities/media";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { favoritesApi, watchesApi } from "@/services/api-client";
-import useMediaStore from "../use-media-store";
+import { usePaginationStore } from "../use-pagination-store";
 
 const useHighestRatedSeries = () => {
-  const { currentPage } = useMediaStore();
+  const { highestRatedSeriesPage } = usePaginationStore();
 
   const options = {
     method: "GET",
     url: `${
       import.meta.env.VITE_TMDB_BASE_URL
-    }/tv/top_rated?language=en-US&page=${currentPage}`,
+    }/tv/top_rated?language=en-US&page=${highestRatedSeriesPage}`,
     headers: {
       accept: "application/json",
       Authorization: `Bearer ${import.meta.env.VITE_TMDB_READ_ACCESS_TOKEN}`,
@@ -19,7 +19,7 @@ const useHighestRatedSeries = () => {
   };
 
   return useQuery({
-    queryKey: ["highest-rated-series", currentPage],
+    queryKey: ["highest-rated-series", highestRatedSeriesPage],
     queryFn: async () => {
       const response = await axios.request(options);
 

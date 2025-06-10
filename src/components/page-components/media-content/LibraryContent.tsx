@@ -7,9 +7,9 @@ const LibraryContent = () => {
   return (
     <>
       <SearchBar />
-      <GridHeading title="Your Favorites" />
+      <GridHeading title="Your Favorites" page={1} setPage={() => {}} />
       <FavoritesGrid />
-      <GridHeading title="Your Watches" />
+      <GridHeading title="Your Watches" page={1} setPage={() => {}} />
       <WatchedGrid />
     </>
   );

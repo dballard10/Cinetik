@@ -2,27 +2,24 @@ import { Media } from "@/entities/media";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { favoritesApi, watchesApi } from "@/services/api-client";
-import useMediaStore from "./use-media-store";
+import { usePaginationStore } from "./use-pagination-store";
 
 const useTrending = () => {
-  const { currentPage } = useMediaStore();
+  const { trendingPage } = usePaginationStore();
 
   const options = {
     method: "GET",
     url: `${
       import.meta.env.VITE_TMDB_BASE_URL
-    }/trending/all/day?language=en-US&page=${currentPage}`,
+    }/trending/all/day?language=en-US&page=${trendingPage}`,
     headers: {
       accept: "application/json",
       Authorization: `Bearer ${import.meta.env.VITE_TMDB_READ_ACCESS_TOKEN}`,
     },
   };
 
-  console.log("🔥 useTrending: URL:", options.url);
-  console.log("🔥 useTrending: Current Page:", currentPage);
-
   return useQuery({
-    queryKey: ["trending", currentPage],
+    queryKey: ["trending", trendingPage],
     queryFn: async () => {
       const response = await axios.request(options);
 

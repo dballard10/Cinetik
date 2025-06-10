@@ -42,7 +42,7 @@ const MediaDetails = ({ title }: { title: string }) => {
               media_type={selectedShow.media_type}
             />
           </div>
-          <div className="flex justify-center pt-2">
+          <div className="flex justify-center">
             <MediaProductionCompanies
               production_companies={selectedShow.production_companies}
             />

@@ -20,7 +20,12 @@ const ContentPage = ({ pageName }: ContentPageProps) => {
     <div className="h-screen max-h-screen flex flex-col bg-gradient-to-br from-gray-900 to-black text-white overflow-hidden">
       <Navigation />
       <div className="absolute top-20 pt-2 left-8">
-        <AsidePanel isCollapsed={isCollapsed} toggleCollapse={toggleCollapse} />
+        {pageName !== "library" && pageName !== "social" && (
+          <AsidePanel
+            isCollapsed={isCollapsed}
+            toggleCollapse={toggleCollapse}
+          />
+        )}
       </div>
       <main className="relative flex-1 overflow-x-hidden">
         <div className="px-6 py-6">

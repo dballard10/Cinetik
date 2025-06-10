@@ -1,11 +1,13 @@
-import useMediaStore from "@/hooks/use-media-store";
 import { TbChevronRight } from "react-icons/tb";
 
-const NextPageButton = () => {
-  const { currentPage, setCurrentPage } = useMediaStore();
+interface NextPageButtonProps {
+  page: number;
+  setPage: (page: number) => void;
+}
 
+const NextPageButton = ({ page, setPage }: NextPageButtonProps) => {
   const handleClick = () => {
-    setCurrentPage(currentPage + 1);
+    setPage(page + 1);
   };
 
   return (

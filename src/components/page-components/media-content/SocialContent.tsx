@@ -7,7 +7,11 @@ const SocialContent = () => {
   return (
     <>
       <SearchBar />
-      <GridHeading title="What your friends are watching" />
+      <GridHeading
+        title="What your friends are watching"
+        page={1}
+        setPage={() => {}}
+      />
       <MediaGrid useMediaHook={useTrendingMovies} />
     </>
   );

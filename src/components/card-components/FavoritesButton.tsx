@@ -59,7 +59,7 @@ const FavoritesButton = ({ media }: FavoritesButtonProps) => {
       )}
     >
       {/* Black outline star - positioned behind */}
-      <TbStarFilled className="absolute w-7 h-7 text-black transition-all duration-300 -translate-x-0.5 -translate-y-0.5 opacity-20" />
+      {/* <TbStarFilled className="absolute w-7 h-7 text-black transition-all duration-300 -translate-x-0.5 -translate-y-0.5 opacity-20" /> */}
 
       {/* Main star - positioned on top */}
       {media.isFavorite ? (
