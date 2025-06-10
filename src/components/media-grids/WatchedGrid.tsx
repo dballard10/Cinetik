@@ -35,7 +35,6 @@ const WatchedGrid = () => {
   }
 
   if (error) {
-    console.log("👁️ WatchedGrid: Error fetching watched movies:", error);
     return <div>Error: {(error as Error).message}</div>;
   }
 

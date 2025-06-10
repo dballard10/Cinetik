@@ -12,17 +12,7 @@ interface WatchedButtonProps {
 const WatchedButton = ({ media }: WatchedButtonProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(
-    "👁️ Title: ",
-    media?.name,
-    "| ID: ",
-    media?.id,
-    "| Is Watched: ",
-    media?.isWatched
-  );
-
   if (!media) {
-    console.log("👁️: No media provided - returning null");
     return null;
   }
 
@@ -33,11 +23,6 @@ const WatchedButton = ({ media }: WatchedButtonProps) => {
 
     try {
       const newWatchStatus = !media.isWatched;
-
-      console.log(
-        "👁️ Watched Button Clicked: New watched status:",
-        newWatchStatus
-      );
 
       if (newWatchStatus) {
         // Adding to watched
@@ -78,7 +63,7 @@ const WatchedButton = ({ media }: WatchedButtonProps) => {
       {media.isWatched ? (
         <TbEyeFilled className="relative w-6 h-6 text-blue-400 transition-all duration-300" />
       ) : (
-        <TbEyePlus className="relative w-6 h-6 group-hover:text-blue-400 transition-all duration-300" />
+        <TbEyePlus className="relative w-6 h-6 text-gray-400 group-hover:text-blue-400 transition-all duration-300" />
       )}
     </motion.button>
   );

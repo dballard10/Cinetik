@@ -12,17 +12,7 @@ interface FavoritesButtonProps {
 const FavoritesButton = ({ media }: FavoritesButtonProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(
-    "⭐ Title: ",
-    media?.name,
-    "| ID: ",
-    media?.id,
-    "| Is Favorite: ",
-    media?.isFavorite
-  );
-
   if (!media) {
-    console.log("⭐ FavoritesButton: No media provided - returning null");
     return null;
   }
 
@@ -34,11 +24,6 @@ const FavoritesButton = ({ media }: FavoritesButtonProps) => {
     try {
       const newFavoriteStatus = !media.isFavorite;
 
-      console.log(
-        "⭐ Favorites Button Clicked: New favorite status:",
-        newFavoriteStatus
-      );
-
       if (newFavoriteStatus) {
         // Adding to favorites
         await favoritesApi.addFavorite(media);
@@ -47,10 +32,9 @@ const FavoritesButton = ({ media }: FavoritesButtonProps) => {
         await favoritesApi.removeFavorite(media.id);
       }
 
-      // Update the media object after successful API call
       media.isFavorite = newFavoriteStatus;
     } catch (error) {
-      console.error("Error updating favorite status:", error);
+      console.error("Error updating favorite status:", error); // TODO: Add toast notification
     } finally {
       setIsLoading(false);
     }
@@ -81,7 +65,7 @@ const FavoritesButton = ({ media }: FavoritesButtonProps) => {
       {media.isFavorite ? (
         <TbStarFilled className="relative w-6 h-6 text-purple-400 transition-all duration-300" />
       ) : (
-        <TbStar className="relative w-6 h-6 text-gray-700 group-hover:text-purple-400 transition-all duration-300" />
+        <TbStar className="relative w-6 h-6 text-gray-400 group-hover:text-purple-400 transition-all duration-300" />
       )}
     </motion.button>
   );

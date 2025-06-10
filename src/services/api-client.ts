@@ -42,7 +42,6 @@ export const favoritesApi = {
   findAllFavorites: async (content: Media[]) => {
     for (const item of content) {
       const response = await api.get(`/favorites/is-favorite/${item.id}`);
-      console.log("Title:", item.name, "| Is Favorite:", response.data);
       item.isFavorite = response.data;
     }
     return content;
@@ -78,7 +77,6 @@ export const watchesApi = {
   findAllWatches: async (content: Media[]) => {
     for (const item of content) {
       const response = await api.get(`/watches/is-watched/${item.id}`);
-      console.log("Title:", item.name, "| Is Watched:", response.data);
       item.isWatched = response.data;
     }
     return content;

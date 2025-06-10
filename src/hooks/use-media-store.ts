@@ -34,6 +34,8 @@ interface MediaState {
     name: string;
   };
   searchQuery: string;
+  currentPage: number;
+  setCurrentPage: (page: number) => void;
   setSelectedShow: (show: MediaState["selectedShow"]) => void;
   clearSelectedShow: () => void;
   addSelectedGenre: (movieId: number, tvId: number, name: string) => void;
@@ -82,6 +84,7 @@ const useMediaStore = create<MediaState>()((set) => ({
     name: "",
   },
   searchQuery: "",
+  currentPage: 1,
   setSelectedShow: (show) => set({ selectedShow: show }),
   clearSelectedShow: () =>
     set({
@@ -173,6 +176,7 @@ const useMediaStore = create<MediaState>()((set) => ({
     }),
   setSearchQuery: (query) => set({ searchQuery: query }),
   clearSearchQuery: () => set({ searchQuery: "" }),
+  setCurrentPage: (page) => set({ currentPage: page }),
 }));
 
 export default useMediaStore;
