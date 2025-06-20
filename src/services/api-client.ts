@@ -31,6 +31,10 @@ export const favoritesApi = {
   },
 
   addFavorite: async (media: Media) => {
+    const currentFavorites = await api.get("/favorites");
+    if (currentFavorites.data.length >= 100) {
+      throw new Error("Maximum number of favorites (100) reached");
+    }
     const response = await api.post("/favorites", { media });
     return response.data;
   },
@@ -66,6 +70,10 @@ export const watchesApi = {
   },
 
   addWatch: async (media: Media) => {
+    const currentWatches = await api.get("/watches");
+    if (currentWatches.data.length >= 100) {
+      throw new Error("Maximum number of watches (100) reached");
+    }
     const response = await api.post("/watches", { media });
     return response.data;
   },

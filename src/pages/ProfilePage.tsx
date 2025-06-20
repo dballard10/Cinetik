@@ -93,7 +93,7 @@ const ProfilePage = () => {
             <div className="md:w-2/3">
               <Card className="p-6 bg-gray-800/50 backdrop-blur-md rounded-xl shadow-2xl border border-gray-700/50">
                 <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-2xl font-bold">Favorite Shows</h3>
+                  <h3 className="text-2xl font-bold">Favorites</h3>
                   <button
                     onClick={() => {
                       navigate("/library");

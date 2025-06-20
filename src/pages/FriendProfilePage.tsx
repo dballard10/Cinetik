@@ -1,8 +1,6 @@
 import { Navigation } from "@/components/page-components/Navigation";
 import { Card } from "@/components/ui/card";
 import UserFavorites from "@/components/profile/UserFavorites";
-import { favoritesApi } from "@/services/api-client";
-import { useQuery } from "@tanstack/react-query";
 import useFriendStore from "@/hooks/use-friend-store";
 
 interface FriendProfilePageProps {
@@ -11,15 +9,6 @@ interface FriendProfilePageProps {
 
 const FriendProfilePage = ({ username }: FriendProfilePageProps) => {
   const { selectedFriend } = useFriendStore();
-
-  // Get real favorites count (same as profile page)
-  const { data: favoritesData } = useQuery({
-    queryKey: ["favorites-count"],
-    queryFn: async () => {
-      const data = await favoritesApi.getFavorites();
-      return data?.favorites || [];
-    },
-  });
 
   // If no friend is selected, show a fallback
   if (!selectedFriend) {
@@ -105,12 +94,11 @@ const FriendProfilePage = ({ username }: FriendProfilePageProps) => {
             <div className="md:w-2/3">
               <Card className="p-6 bg-gray-800/50 backdrop-blur-md rounded-xl shadow-2xl border border-gray-700/50">
                 <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-2xl font-bold">Favorite Shows</h3>
+                  <h3 className="text-2xl font-bold">Favorites</h3>
                   <button className="text-sm bg-purple-600 hover:bg-purple-700 px-3 py-1 rounded-full transition-colors">
                     View All
                   </button>
                 </div>
-
                 <UserFavorites />
               </Card>
 

@@ -17,7 +17,7 @@ const Friend = ({ username, avatar }: FriendProps) => {
     setSelectedFriend({
       id: Math.floor(Math.random() * 1000), // Generate a random ID for demo
       username: username,
-      email: `${username.toLowerCase()}@example.com`,
+      email: `${username.toLowerCase().replace(" ", "")}@example.com`,
       imageUrl: avatar || defaultImage,
       bannerColor: "from-green-600 to-teal-800", // You can randomize this or get from API
       stats: {
