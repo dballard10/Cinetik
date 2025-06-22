@@ -21,11 +21,18 @@ api.interceptors.request.use((config) => {
 // --------------------------Favorites API---------------------------
 
 export const favoritesApi = {
-  getFavorites: async () => {
+  getFavorites: async (page: number = 1, limit: number = 20) => {
     try {
-      const response = await api.get("/favorites");
+      const url = `/favorites?page=${page}&limit=${limit}`;
+      console.log(`🌐 API Call: GET ${url}`);
+      const response = await api.get(url);
+      console.log(`📡 API Response for ${url}:`, response.data);
       return response.data;
     } catch (error) {
+      console.error(
+        `❌ API Error for GET /favorites?page=${page}&limit=${limit}:`,
+        error
+      );
       throw error;
     }
   },
@@ -60,19 +67,26 @@ export const favoritesApi = {
 // --------------------------Watches API---------------------------
 
 export const watchesApi = {
-  getWatches: async () => {
+  getWatches: async (page: number = 1, limit: number = 20) => {
     try {
-      const response = await api.get("/watches");
+      const url = `/watches?page=${page}&limit=${limit}`;
+      console.log(`🌐 API Call: GET ${url}`);
+      const response = await api.get(url);
+      console.log(`📡 API Response for ${url}:`, response.data);
       return response.data;
     } catch (error) {
+      console.error(
+        `❌ API Error for GET /watches?page=${page}&limit=${limit}:`,
+        error
+      );
       throw error;
     }
   },
 
   addWatch: async (media: Media) => {
     const currentWatches = await api.get("/watches");
-    if (currentWatches.data.length >= 100) {
-      throw new Error("Maximum number of watches (100) reached");
+    if (currentWatches.data.length >= 500) {
+      throw new Error("Maximum number of watches (500) reached");
     }
     const response = await api.post("/watches", { media });
     return response.data;

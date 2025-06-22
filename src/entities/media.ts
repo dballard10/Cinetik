@@ -3,9 +3,8 @@ export interface Media {
   name: string;
   backdrop_path: string;
   vote_average: number;
-  vote_count?: number;
+  vote_count: number;
   media_type: string;
-  release_date?: string;
   isFavorite: boolean;
   isWatched: boolean;
 }

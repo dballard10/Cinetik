@@ -17,7 +17,7 @@ const navigation = [
   { name: "Discover", href: "/", current: true },
   { name: "Movies", href: "/movies", current: false },
   { name: "Series", href: "/series", current: false },
-  { name: "Social", href: "/social", current: false },
+  // { name: "Social", href: "/social", current: false },
   { name: "Library", href: "/library", current: false },
 ];
 
@@ -25,7 +25,7 @@ const userNavigation = [
   { name: "Profile", href: "/profile", current: false },
   { name: "Friends", href: "/friends", current: false },
   { name: "Settings", href: "/settings" },
-  { name: "Sign out", href: "#" },
+  // { name: "Sign out", href: "#" },
 ];
 
 const userNotifications = [

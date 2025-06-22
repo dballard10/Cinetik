@@ -14,23 +14,19 @@ const GridHeading = ({
   return (
     <div>
       <div className="flex items-center justify-center pb-2 pt-4">
-        {title !== "Your Favorites" &&
-          title !== "Your Watches" &&
-          title !== "What your friends are watching" && (
-            <div className="flex items-center px-12 py-2">
-              <PrevPageButton page={page} setPage={setPage} />
-            </div>
-          )}
+        {title !== "What your friends are watching" && (
+          <div className="flex items-center px-12 py-2">
+            <PrevPageButton page={page} setPage={setPage} />
+          </div>
+        )}
         <h1 className="text-center text-3xl font-bold tracking-tight text-white pb-2 pt-4">
           {title}
         </h1>
-        {title !== "Your Favorites" &&
-          title !== "Your Watches" &&
-          title !== "What your friends are watching" && (
-            <div className="flex items-center px-12 py-2">
-              <NextPageButton page={page} setPage={setPage} />
-            </div>
-          )}
+        {title !== "What your friends are watching" && (
+          <div className="flex items-center px-12 py-2">
+            <NextPageButton page={page} setPage={setPage} />
+          </div>
+        )}
       </div>
       <Separator />
     </div>

@@ -11,7 +11,7 @@ const UserFavorites = () => {
   } = useQuery({
     queryKey: ["user-favorites"],
     queryFn: async () => {
-      const favoritesData = await favoritesApi.getFavorites();
+      const favoritesData = await favoritesApi.getFavorites(1);
 
       if (favoritesData?.favorites) {
         // Transform favorites data to extract the media objects and ensure isFavorite is true

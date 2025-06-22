@@ -9,6 +9,7 @@ interface MediaState {
     poster_path: string;
     backdrop_path: string;
     vote_average: number;
+    vote_count: number;
     media_type: "tv" | "movie";
     release_date: string;
     isFavorite: boolean;
@@ -57,6 +58,7 @@ const useMediaStore = create<MediaState>()((set) => ({
     poster_path: "",
     backdrop_path: "",
     vote_average: 0,
+    vote_count: 0,
     media_type: "tv",
     release_date: "",
     isFavorite: false,
@@ -92,6 +94,7 @@ const useMediaStore = create<MediaState>()((set) => ({
         poster_path: "",
         backdrop_path: "",
         vote_average: 0,
+        vote_count: 0,
         media_type: "tv",
         release_date: "",
         isFavorite: false,

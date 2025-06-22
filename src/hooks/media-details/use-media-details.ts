@@ -3,10 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const useMediaDetails = (id: number, media_type: string) => {
-  if (!id || !media_type) {
-    throw new Error("Invalid parameters: id and media_type are required");
-  }
-
   const options = {
     method: "GET",
     url: `${
@@ -21,6 +17,10 @@ const useMediaDetails = (id: number, media_type: string) => {
   return useQuery({
     queryKey: ["media-details", id, media_type],
     queryFn: async () => {
+      if (!id || !media_type) {
+        throw new Error("Invalid parameters: id and media_type are required");
+      }
+
       const response = await axios.request(options);
 
       if (response && response.data) {
@@ -32,6 +32,7 @@ const useMediaDetails = (id: number, media_type: string) => {
           poster_path: item.poster_path,
           backdrop_path: item.backdrop_path,
           vote_average: item.vote_average,
+          vote_count: item.vote_count,
           media_type: media_type,
           release_date: item.release_date || item.first_air_date,
           isFavorite: false,
@@ -46,6 +47,7 @@ const useMediaDetails = (id: number, media_type: string) => {
 
       throw new Error("Invalid response from API");
     },
+    enabled: Boolean(id && media_type), // Only run the query if we have valid parameters
   });
 };
 

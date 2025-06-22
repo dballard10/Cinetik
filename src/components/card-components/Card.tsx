@@ -49,6 +49,11 @@ const Card = ({
     vote_average: content?.vote_average || 0,
   };
 
+  // Don't render the card if we don't have valid id or media_type
+  if (!id || !media_type) {
+    return null;
+  }
+
   return (
     <div className="relative group bg-white/10 backdrop-blur-lg border border-white/20 rounded-lg hover:scale-105 transition-all duration-300 overflow-hidden">
       <CardImage

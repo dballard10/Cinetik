@@ -24,12 +24,12 @@ const SettingsList = ({
       id: 4,
       name: "Notifications",
     },
+    // {
+    //   id: 5,
+    //   name: "Privacy",
+    // },
     {
       id: 5,
-      name: "Privacy",
-    },
-    {
-      id: 6,
       name: "Help",
     },
   ];

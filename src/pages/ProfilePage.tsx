@@ -23,7 +23,7 @@ const ProfilePage = () => {
   const { data: favoritesData } = useQuery({
     queryKey: ["favorites-count"],
     queryFn: async () => {
-      const data = await favoritesApi.getFavorites();
+      const data = await favoritesApi.getFavorites(1);
       return data?.favorites || [];
     },
   });

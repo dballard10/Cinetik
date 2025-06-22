@@ -43,7 +43,7 @@ const useFilteredBoth = (
   const combinedResults = {
     data: Array.from(uniqueItems.values()),
     isLoading: moviesQuery.isLoading || tvQuery.isLoading,
-    isError: moviesQuery.isError || tvQuery.isError,
+    isError: !!moviesQuery.error || !!tvQuery.error,
     error: moviesQuery.error || tvQuery.error,
   };
 

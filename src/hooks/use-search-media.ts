@@ -1,8 +1,7 @@
 import { Media } from "@/entities/media";
-import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { favoritesApi, watchesApi } from "@/services/api-client";
 import { usePaginationStore } from "./use-pagination-store";
+import { useEnhancedMedia } from "./use-enhanced-media";
 
 const useSearchMedia = (query: string, media_type: string) => {
   const { searchPage } = usePaginationStore();
@@ -18,37 +17,33 @@ const useSearchMedia = (query: string, media_type: string) => {
     },
   };
 
-  return useQuery({
+  const basicDataFetcher = async (): Promise<Media[]> => {
+    const response = await axios.request(options);
+
+    if (response && response.data.results) {
+      const mediaItems = response.data.results.map(
+        (item: any): Media => ({
+          id: item.id,
+          name: item.title || item.name,
+          backdrop_path: item.backdrop_path,
+          vote_average: item.vote_average,
+          vote_count: item.vote_count,
+          media_type: media_type,
+          isFavorite: false,
+          isWatched: false,
+        })
+      );
+
+      mediaItems.sort((a, b) => b.vote_count - a.vote_count);
+      return mediaItems;
+    }
+
+    throw new Error("Invalid response from API");
+  };
+
+  return useEnhancedMedia({
     queryKey: ["search-media", query, media_type, searchPage],
-    queryFn: async () => {
-      const response = await axios.request(options);
-
-      if (response && response.data.results) {
-        const mediaItems = response.data.results.map(
-          (item: any): Media => ({
-            id: item.id,
-            name: item.title || item.name,
-            backdrop_path: item.backdrop_path,
-            vote_average: item.vote_average,
-            vote_count: item.vote_count,
-            media_type: media_type,
-            isFavorite: false,
-            isWatched: false,
-          })
-        );
-
-        mediaItems.sort((a, b) => b.vote_count - a.vote_count);
-
-        // Check for both favorites and watched status
-        const favoritesResults = await favoritesApi.findAllFavorites(
-          mediaItems
-        );
-        const results = await watchesApi.findAllWatches(favoritesResults);
-        return results;
-      }
-
-      throw new Error("Invalid response from API");
-    },
+    basicDataFetcher,
   });
 };
 

@@ -11,6 +11,7 @@ import MediaProviders from "./MediaProviders";
 import Separator from "../page-components/Separator";
 import WatchedButton from "../card-components/WatchedButton";
 import useMediaStore from "@/hooks/use-media-store";
+import Runtime from "./Runtime";
 
 const MediaDetails = ({ title }: { title: string }) => {
   const selectedShow = useMediaStore((state) => state.selectedShow);
@@ -23,6 +24,7 @@ const MediaDetails = ({ title }: { title: string }) => {
           <div className="flex gap-4 items-center">
             <MediaType media_type={selectedShow.media_type} />
             <ReleaseDate release_date={selectedShow.release_date} />
+            <Runtime runtime={selectedShow.runtime} />
           </div>
           <div className="flex gap-2">
             <Rating rating={selectedShow.vote_average} />
