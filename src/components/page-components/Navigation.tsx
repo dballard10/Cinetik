@@ -28,9 +28,9 @@ const userNavigation = [
   // { name: "Sign out", href: "#" },
 ];
 
-const userNotifications = [
-  { name: "Notifications", href: "/notifications", current: false },
-];
+// const userNotifications = [
+//   { name: "Notifications", href: "/notifications", current: false },
+// ];
 
 export function Navigation() {
   const location = useLocation();
@@ -133,7 +133,7 @@ export function Navigation() {
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-4 flex items-center md:ml-6">
-                      <motion.a
+                      {/* <motion.a
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         title="Notifications"
@@ -143,7 +143,7 @@ export function Navigation() {
                         <span className="absolute -inset-1.5" />
                         <span className="sr-only">View notifications</span>
                         <BellIcon className="h-6 w-6" aria-hidden="true" />
-                      </motion.a>
+                      </motion.a> */}
 
                       <Menu as="div" className="relative ml-3">
                         <motion.div
@@ -271,7 +271,7 @@ export function Navigation() {
                         {user.email}
                       </div>
                     </div>
-                    <motion.a
+                    {/* <motion.a
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       href={userNotifications[0].href}
@@ -280,7 +280,7 @@ export function Navigation() {
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">View notifications</span>
                       <BellIcon className="h-6 w-6" aria-hidden="true" />
-                    </motion.a>
+                    </motion.a> */}
                   </motion.div>
                   <motion.div
                     initial={{ opacity: 0 }}

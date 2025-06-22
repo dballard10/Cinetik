@@ -4,7 +4,7 @@ import defaultProfilePic from "@/assets/default-profile-pic.webp";
 import { Card } from "@/components/ui/card";
 import { TbPencil } from "react-icons/tb";
 import UserFavorites from "@/components/profile/UserFavorites";
-import { favoritesApi } from "@/services/api-client";
+import { favoritesApi, friendsApi, watchesApi } from "@/services/api-client";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
@@ -17,7 +17,7 @@ const mockUser = {
 };
 
 const ProfilePage = () => {
-  const [isEditing, setIsEditing] = useState(false);
+  // const [isEditing, setIsEditing] = useState(false);
   const navigate = useNavigate();
   // Get real favorites count
   const { data: favoritesData } = useQuery({
@@ -27,7 +27,29 @@ const ProfilePage = () => {
       return data?.favorites || [];
     },
   });
-
+  const { data: watchesData } = useQuery({
+    queryKey: ["watches-count"],
+    queryFn: async () => {
+      const data = await watchesApi.getWatches(1);
+      return data?.watches || [];
+    },
+  });
+  const {
+    data: friendsData,
+    isLoading: friendsLoading,
+    error: friendsError,
+  } = useQuery({
+    queryKey: ["friends-count"],
+    queryFn: async () => {
+      try {
+        const data = await friendsApi.getFriends();
+        return data?.friends || data || [];
+      } catch (error) {
+        console.error("Friends query error:", error);
+        return [];
+      }
+    },
+  });
   return (
     <div className="h-screen flex flex-col bg-gradient-to-br from-gray-900 to-black text-white overflow-hidden">
       <Navigation />
@@ -45,12 +67,12 @@ const ProfilePage = () => {
                   alt={mockUser.name}
                   className="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-gray-900"
                 />
-                <button
+                {/* <button
                   className="absolute bottom-0 right-0 bg-gray-800 p-2 rounded-full hover:bg-gray-700 transition-colors"
                   onClick={() => setIsEditing(!isEditing)}
                 >
                   <TbPencil className="w-4 h-4" />
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
@@ -67,22 +89,30 @@ const ProfilePage = () => {
                   <h3 className="text-xl font-semibold mb-2">Stats</h3>
                   <div className="grid grid-cols-2 gap-2">
                     <div className="bg-gray-700/50 p-3 rounded-lg">
-                      <p className="text-gray-400 text-sm">Watched</p>
-                      <p className="text-xl font-bold">42</p>
+                      <p className="text-gray-400 text-sm">Watches</p>
+                      <p className="text-xl font-bold">
+                        {watchesData?.length || "-"}
+                      </p>
                     </div>
-                    <div className="bg-gray-700/50 p-3 rounded-lg">
+                    {/* <div className="bg-gray-700/50 p-3 rounded-lg">
                       <p className="text-gray-400 text-sm">Reviews</p>
                       <p className="text-xl font-bold">18</p>
-                    </div>
+                    </div> */}
                     <div className="bg-gray-700/50 p-3 rounded-lg">
                       <p className="text-gray-400 text-sm">Favorites</p>
                       <p className="text-xl font-bold">
-                        {favoritesData?.length || 0}
+                        {favoritesData?.length || "-"}
                       </p>
                     </div>
                     <div className="bg-gray-700/50 p-3 rounded-lg">
                       <p className="text-gray-400 text-sm">Friends</p>
-                      <p className="text-xl font-bold">15</p>
+                      <p className="text-xl font-bold">
+                        {friendsLoading
+                          ? "..."
+                          : friendsError
+                          ? "Error"
+                          : friendsData?.length ?? 0}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -107,7 +137,7 @@ const ProfilePage = () => {
               </Card>
 
               {/* Activity Feed */}
-              <Card className="p-6 bg-gray-800/50 backdrop-blur-md rounded-xl shadow-2xl border border-gray-700/50 mt-6">
+              {/* <Card className="p-6 bg-gray-800/50 backdrop-blur-md rounded-xl shadow-2xl border border-gray-700/50 mt-6">
                 <h3 className="text-2xl font-bold mb-4">Recent Activity</h3>
                 <div className="space-y-4">
                   <div className="flex items-start gap-3 pb-3 border-b border-gray-700">
@@ -140,7 +170,7 @@ const ProfilePage = () => {
                     </div>
                   </div>
                 </div>
-              </Card>
+              </Card> */}
             </div>
           </div>
         </div>

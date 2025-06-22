@@ -24,9 +24,7 @@ export const favoritesApi = {
   getFavorites: async (page: number = 1, limit: number = 20) => {
     try {
       const url = `/favorites?page=${page}&limit=${limit}`;
-      console.log(`🌐 API Call: GET ${url}`);
       const response = await api.get(url);
-      console.log(`📡 API Response for ${url}:`, response.data);
       return response.data;
     } catch (error) {
       console.error(
@@ -70,9 +68,7 @@ export const watchesApi = {
   getWatches: async (page: number = 1, limit: number = 20) => {
     try {
       const url = `/watches?page=${page}&limit=${limit}`;
-      console.log(`🌐 API Call: GET ${url}`);
       const response = await api.get(url);
-      console.log(`📡 API Response for ${url}:`, response.data);
       return response.data;
     } catch (error) {
       console.error(
@@ -114,8 +110,14 @@ export const watchesApi = {
 
 export const friendsApi = {
   getFriends: async () => {
-    const response = await api.get("/friends");
-    return response.data;
+    try {
+      const url = `/friends`;
+      const response = await api.get(url);
+      return response.data;
+    } catch (error) {
+      console.error(`❌ API Error for GET /friends:`, error);
+      throw error;
+    }
   },
 
   getFriend: async (friendId: number) => {
