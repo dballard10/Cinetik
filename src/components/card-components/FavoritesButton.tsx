@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { Media } from "@/entities/media";
 import { favoritesApi } from "@/services/api-client";
 import { useState } from "react";
+import { usePaginationStore } from "@/hooks/use-pagination-store";
 
 interface FavoritesButtonProps {
   media: Media;
@@ -11,6 +12,7 @@ interface FavoritesButtonProps {
 
 const FavoritesButton = ({ media }: FavoritesButtonProps) => {
   const [isLoading, setIsLoading] = useState(false);
+  const { fetchFavoritesPagination } = usePaginationStore();
 
   if (!media) {
     return null;
@@ -33,6 +35,9 @@ const FavoritesButton = ({ media }: FavoritesButtonProps) => {
       }
 
       media.isFavorite = newFavoriteStatus;
+
+      // Refresh pagination info after the operation
+      await fetchFavoritesPagination();
     } catch (error) {
       console.error("Error updating favorite status:", error); // TODO: Add toast notification
     } finally {

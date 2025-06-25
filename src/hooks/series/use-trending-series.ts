@@ -27,6 +27,7 @@ const useTrendingSeries = () => {
           name: item.name || item.title,
           backdrop_path: item.backdrop_path,
           vote_average: item.vote_average,
+          vote_count: item.vote_count,
           media_type: "tv",
           isFavorite: false,
           isWatched: false,

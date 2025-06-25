@@ -6,11 +6,15 @@ const GridHeading = ({
   title,
   page,
   setPage,
+  totalPages,
 }: {
   title: string;
   page: number;
   setPage: (page: number) => void;
+  totalPages?: number;
 }) => {
+  const isLastPage = totalPages ? page >= totalPages : false;
+
   return (
     <div>
       <div className="flex items-center justify-center pb-2 pt-4">
@@ -24,7 +28,11 @@ const GridHeading = ({
         </h1>
         {title !== "What your friends are watching" && (
           <div className="flex items-center px-12 py-2">
-            <NextPageButton page={page} setPage={setPage} />
+            <NextPageButton
+              page={page}
+              setPage={setPage}
+              disabled={isLastPage}
+            />
           </div>
         )}
       </div>

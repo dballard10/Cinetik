@@ -60,6 +60,11 @@ export const favoritesApi = {
     const response = await api.get(`/favorites/is-favorite/${mediaId}`);
     return response.data;
   },
+
+  getFavoritesLength: async () => {
+    const response = await api.get("/favorites/length");
+    return response.data;
+  },
 };
 
 // --------------------------Watches API---------------------------
@@ -104,6 +109,11 @@ export const watchesApi = {
     const response = await api.get(`/watches/is-watched/${mediaId}`);
     return response.data;
   },
+
+  getWatchesLength: async () => {
+    const response = await api.get("/watches/length");
+    return response.data;
+  },
 };
 
 // --------------------------Friends API---------------------------
@@ -132,5 +142,10 @@ export const friendsApi = {
 
   removeFriend: async (friendId: number) => {
     await api.delete(`/friends/${friendId}`);
+  },
+
+  getFriendsLength: async () => {
+    const response = await api.get("/friends/length");
+    return response.data;
   },
 };

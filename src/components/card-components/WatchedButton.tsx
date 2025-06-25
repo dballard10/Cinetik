@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Media } from "@/entities/media";
 import { watchesApi } from "@/services/api-client";
+import { usePaginationStore } from "@/hooks/use-pagination-store";
 
 interface WatchedButtonProps {
   media: Media;
@@ -11,6 +12,7 @@ interface WatchedButtonProps {
 
 const WatchedButton = ({ media }: WatchedButtonProps) => {
   const [isLoading, setIsLoading] = useState(false);
+  const { fetchWatchesPagination } = usePaginationStore();
 
   if (!media) {
     return null;
@@ -34,6 +36,9 @@ const WatchedButton = ({ media }: WatchedButtonProps) => {
 
       // Update the media object after successful API call
       media.isWatched = newWatchStatus;
+
+      // Refresh pagination info after the operation
+      await fetchWatchesPagination();
     } catch (error) {
       console.error("Error updating watch status:", error);
     } finally {
