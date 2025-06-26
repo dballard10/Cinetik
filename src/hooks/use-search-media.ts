@@ -4,7 +4,7 @@ import { usePaginationStore } from "./use-pagination-store";
 import { useEnhancedMedia } from "./use-enhanced-media";
 
 const useSearchMedia = (query: string, media_type: string) => {
-  const { searchPage } = usePaginationStore();
+  const { searchPage, setSearchTotalPages } = usePaginationStore();
 
   const options = {
     method: "GET",
@@ -21,6 +21,10 @@ const useSearchMedia = (query: string, media_type: string) => {
     const response = await axios.request(options);
 
     if (response && response.data.results) {
+      if (response.data.total_pages) {
+        setSearchTotalPages(Math.min(response.data.total_pages, 500));
+      }
+
       const mediaItems = response.data.results.map(
         (item: any): Media => ({
           id: item.id,

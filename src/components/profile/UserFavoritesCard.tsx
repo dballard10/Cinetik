@@ -49,6 +49,7 @@ const UserFavoritesCard = ({
     isFavorite: isFavorite || false,
     isWatched: isWatched || false,
     vote_average: content?.vote_average || 0,
+    vote_count: content?.vote_count || 0,
   };
 
   // Get the full image URL like in the original CardImage component

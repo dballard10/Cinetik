@@ -3,7 +3,7 @@ import { TbEyePlus, TbEyeFilled } from "react-icons/tb";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Media } from "@/entities/media";
-import { watchesApi } from "@/services/api-client";
+import { watchesApi, favoritesApi } from "@/services/api-client";
 import { usePaginationStore } from "@/hooks/use-pagination-store";
 
 interface WatchedButtonProps {
@@ -12,7 +12,8 @@ interface WatchedButtonProps {
 
 const WatchedButton = ({ media }: WatchedButtonProps) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { fetchWatchesPagination } = usePaginationStore();
+  const { fetchWatchesPagination, fetchFavoritesPagination } =
+    usePaginationStore();
 
   if (!media) {
     return null;
@@ -29,6 +30,12 @@ const WatchedButton = ({ media }: WatchedButtonProps) => {
       if (newWatchStatus) {
         // Adding to watched
         await watchesApi.addWatch(media);
+
+        // If item is currently favorited, remove it from favorites (mutually exclusive)
+        if (media.isFavorite) {
+          await favoritesApi.removeFavorite(media.id);
+          media.isFavorite = false;
+        }
       } else {
         // Removing from watched
         await watchesApi.removeWatch(media.id);
@@ -39,6 +46,7 @@ const WatchedButton = ({ media }: WatchedButtonProps) => {
 
       // Refresh pagination info after the operation
       await fetchWatchesPagination();
+      await fetchFavoritesPagination();
     } catch (error) {
       console.error("Error updating watch status:", error);
     } finally {

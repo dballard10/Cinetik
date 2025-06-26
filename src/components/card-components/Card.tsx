@@ -47,6 +47,7 @@ const Card = ({
     isFavorite: isFavorite || false,
     isWatched: isWatched || false,
     vote_average: content?.vote_average || 0,
+    vote_count: content?.vote_count || 0,
   };
 
   // Don't render the card if we don't have valid id or media_type

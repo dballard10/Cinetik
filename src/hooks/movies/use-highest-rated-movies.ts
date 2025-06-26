@@ -4,7 +4,8 @@ import { usePaginationStore } from "../use-pagination-store";
 import { useEnhancedMedia } from "../use-enhanced-media";
 
 const useHighestRatedMovies = () => {
-  const { highestRatedMoviesPage } = usePaginationStore();
+  const { highestRatedMoviesPage, setHighestRatedMoviesTotalPages } =
+    usePaginationStore();
 
   const options = {
     method: "GET",
@@ -21,6 +22,12 @@ const useHighestRatedMovies = () => {
     const response = await axios.request(options);
 
     if (response && response.data.results) {
+      if (response.data.total_pages) {
+        setHighestRatedMoviesTotalPages(
+          Math.min(response.data.total_pages, 500)
+        );
+      }
+
       const mediaItems = response.data.results.map(
         (item: any): Media => ({
           id: item.id,

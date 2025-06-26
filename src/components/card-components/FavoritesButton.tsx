@@ -2,7 +2,7 @@ import { TbStar, TbStarFilled } from "react-icons/tb";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Media } from "@/entities/media";
-import { favoritesApi } from "@/services/api-client";
+import { favoritesApi, watchesApi } from "@/services/api-client";
 import { useState } from "react";
 import { usePaginationStore } from "@/hooks/use-pagination-store";
 
@@ -12,7 +12,8 @@ interface FavoritesButtonProps {
 
 const FavoritesButton = ({ media }: FavoritesButtonProps) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { fetchFavoritesPagination } = usePaginationStore();
+  const { fetchFavoritesPagination, fetchWatchesPagination } =
+    usePaginationStore();
 
   if (!media) {
     return null;
@@ -29,6 +30,12 @@ const FavoritesButton = ({ media }: FavoritesButtonProps) => {
       if (newFavoriteStatus) {
         // Adding to favorites
         await favoritesApi.addFavorite(media);
+
+        // If item is currently watched, remove it from watched (mutually exclusive)
+        if (media.isWatched) {
+          await watchesApi.removeWatch(media.id);
+          media.isWatched = false;
+        }
       } else {
         // Removing from favorites
         await favoritesApi.removeFavorite(media.id);
@@ -38,6 +45,7 @@ const FavoritesButton = ({ media }: FavoritesButtonProps) => {
 
       // Refresh pagination info after the operation
       await fetchFavoritesPagination();
+      await fetchWatchesPagination();
     } catch (error) {
       console.error("Error updating favorite status:", error); // TODO: Add toast notification
     } finally {

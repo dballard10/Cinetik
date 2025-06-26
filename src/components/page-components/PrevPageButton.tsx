@@ -12,6 +12,7 @@ const PrevPageButton = ({ page, setPage }: PrevPageButtonProps) => {
   };
 
   const isDisabled = page === 1;
+  const buttonTitle = isDisabled ? "First Page" : "Previous Page";
 
   return (
     <button
@@ -19,7 +20,7 @@ const PrevPageButton = ({ page, setPage }: PrevPageButtonProps) => {
         "w-10 h-10 text-white bg-gray-700 rounded-full flex items-center justify-center",
         isDisabled && "opacity-50"
       )}
-      title="Previous Page"
+      title={buttonTitle}
       onClick={handleClick}
       disabled={isDisabled}
     >

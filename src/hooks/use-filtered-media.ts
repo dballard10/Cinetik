@@ -9,7 +9,7 @@ const useFilteredMedia = (
   sort_by: string,
   media_type: string
 ) => {
-  const { filteredPage } = usePaginationStore();
+  const { filteredPage, setFilteredTotalPages } = usePaginationStore();
 
   const sort_by_query = `sort_by=${sort_by}`;
   const genre_query = `with_genres=${genre_list}`;
@@ -35,6 +35,10 @@ const useFilteredMedia = (
     const response = await axios.request(options);
 
     if (response && response.data.results) {
+      if (response.data.total_pages) {
+        setFilteredTotalPages(Math.min(response.data.total_pages, 500));
+      }
+
       const mediaItems = response.data.results.map(
         (item: any): Media => ({
           id: item.id,

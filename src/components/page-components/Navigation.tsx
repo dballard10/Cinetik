@@ -23,8 +23,8 @@ const navigation = [
 
 const userNavigation = [
   { name: "Profile", href: "/profile", current: false },
-  { name: "Friends", href: "/friends", current: false },
-  { name: "Settings", href: "/settings" },
+  // { name: "Friends", href: "/friends", current: false },
+  // { name: "Settings", href: "/settings" },
   // { name: "Sign out", href: "#" },
 ];
 

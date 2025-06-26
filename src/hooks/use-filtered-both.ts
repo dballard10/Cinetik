@@ -1,4 +1,5 @@
 import useFilteredMedia from "./use-filtered-media";
+import { usePaginationStore } from "./use-pagination-store";
 
 const useFilteredBoth = (
   movie_genres_list: string,
@@ -6,6 +7,8 @@ const useFilteredBoth = (
   platform_list: string,
   sort_by: string
 ) => {
+  const { setFilteredBothTotalPages } = usePaginationStore();
+
   // Get filtered movies
   const moviesQuery = useFilteredMedia(
     movie_genres_list,
@@ -37,6 +40,11 @@ const useFilteredBoth = (
     tvQuery.data.forEach((item) => {
       uniqueItems.set(item.id, item);
     });
+  }
+
+  // Set a combined total pages estimate (this is approximate since we're combining two different endpoints)
+  if (moviesQuery.data || tvQuery.data) {
+    setFilteredBothTotalPages(500); // Set to max since it's combined data
   }
 
   // Convert map values back to array

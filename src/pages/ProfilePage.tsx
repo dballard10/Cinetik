@@ -104,7 +104,7 @@ const ProfilePage = () => {
                         {favoritesData?.length || "-"}
                       </p>
                     </div>
-                    <div className="bg-gray-700/50 p-3 rounded-lg">
+                    {/* <div className="bg-gray-700/50 p-3 rounded-lg">
                       <p className="text-gray-400 text-sm">Friends</p>
                       <p className="text-xl font-bold">
                         {friendsLoading
@@ -113,7 +113,7 @@ const ProfilePage = () => {
                           ? "Error"
                           : friendsData?.length ?? 0}
                       </p>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </Card>

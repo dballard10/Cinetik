@@ -4,16 +4,16 @@ import { cn } from "@/lib/utils";
 interface NextPageButtonProps {
   page: number;
   setPage: (page: number) => void;
-  disabled?: boolean;
+  isDisabled?: boolean;
 }
 
 const NextPageButton = ({
   page,
   setPage,
-  disabled = false,
+  isDisabled = false,
 }: NextPageButtonProps) => {
   const handleClick = () => {
-    if (!disabled) {
+    if (!isDisabled) {
       setPage(page + 1);
     }
   };
@@ -22,11 +22,11 @@ const NextPageButton = ({
     <button
       className={cn(
         "w-10 h-10 text-white bg-gray-700 rounded-full flex items-center justify-center",
-        disabled && "opacity-50 cursor-not-allowed"
+        isDisabled && "opacity-50 cursor-not-allowed"
       )}
-      title={disabled ? "No more pages" : "Next Page"}
+      title={isDisabled ? "No more pages" : "Next Page"}
       onClick={handleClick}
-      disabled={disabled}
+      disabled={isDisabled}
     >
       <TbChevronRight className="w-6 h-6" />
     </button>

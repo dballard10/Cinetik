@@ -4,7 +4,8 @@ import { usePaginationStore } from "../use-pagination-store";
 import { useEnhancedMedia } from "../use-enhanced-media";
 
 const useTrendingSeries = () => {
-  const { trendingSeriesPage } = usePaginationStore();
+  const { trendingSeriesPage, setTrendingSeriesTotalPages } =
+    usePaginationStore();
 
   const options = {
     method: "GET",
@@ -21,6 +22,10 @@ const useTrendingSeries = () => {
     const response = await axios.request(options);
 
     if (response && response.data.results) {
+      if (response.data.total_pages) {
+        setTrendingSeriesTotalPages(Math.min(response.data.total_pages, 500));
+      }
+
       const mediaItems = response.data.results.map(
         (item: any): Media => ({
           id: item.id,

@@ -12,6 +12,14 @@ interface PaginationStore {
   filteredBothPage: number;
   favoritesPage: number;
   watchesPage: number;
+  highestRatedMoviesTotalPages: number;
+  trendingMoviesTotalPages: number;
+  highestRatedSeriesTotalPages: number;
+  trendingSeriesTotalPages: number;
+  trendingTotalPages: number;
+  searchTotalPages: number;
+  filteredTotalPages: number;
+  filteredBothTotalPages: number;
   favoritesTotalPages: number;
   watchesTotalPages: number;
   setHighestRatedMoviesPage: (page: number) => void;
@@ -24,6 +32,14 @@ interface PaginationStore {
   setFilteredBothPage: (page: number) => void;
   setFavoritesPage: (page: number) => void;
   setWatchesPage: (page: number) => void;
+  setHighestRatedMoviesTotalPages: (pages: number) => void;
+  setTrendingMoviesTotalPages: (pages: number) => void;
+  setHighestRatedSeriesTotalPages: (pages: number) => void;
+  setTrendingSeriesTotalPages: (pages: number) => void;
+  setTrendingTotalPages: (pages: number) => void;
+  setSearchTotalPages: (pages: number) => void;
+  setFilteredTotalPages: (pages: number) => void;
+  setFilteredBothTotalPages: (pages: number) => void;
   setFavoritesTotalPages: (pages: number) => void;
   setWatchesTotalPages: (pages: number) => void;
   fetchFavoritesPagination: () => Promise<void>;
@@ -41,6 +57,14 @@ export const usePaginationStore = create<PaginationStore>((set, get) => ({
   filteredBothPage: 1,
   favoritesPage: 1,
   watchesPage: 1,
+  highestRatedMoviesTotalPages: 500,
+  trendingMoviesTotalPages: 500,
+  highestRatedSeriesTotalPages: 500,
+  trendingSeriesTotalPages: 500,
+  trendingTotalPages: 500,
+  searchTotalPages: 500,
+  filteredTotalPages: 500,
+  filteredBothTotalPages: 500,
   favoritesTotalPages: 1,
   watchesTotalPages: 1,
   setHighestRatedMoviesPage: (page) => set({ highestRatedMoviesPage: page }),
@@ -53,6 +77,18 @@ export const usePaginationStore = create<PaginationStore>((set, get) => ({
   setFilteredBothPage: (page) => set({ filteredBothPage: page }),
   setFavoritesPage: (page) => set({ favoritesPage: page }),
   setWatchesPage: (page) => set({ watchesPage: page }),
+  setHighestRatedMoviesTotalPages: (pages) =>
+    set({ highestRatedMoviesTotalPages: pages }),
+  setTrendingMoviesTotalPages: (pages) =>
+    set({ trendingMoviesTotalPages: pages }),
+  setHighestRatedSeriesTotalPages: (pages) =>
+    set({ highestRatedSeriesTotalPages: pages }),
+  setTrendingSeriesTotalPages: (pages) =>
+    set({ trendingSeriesTotalPages: pages }),
+  setTrendingTotalPages: (pages) => set({ trendingTotalPages: pages }),
+  setSearchTotalPages: (pages) => set({ searchTotalPages: pages }),
+  setFilteredTotalPages: (pages) => set({ filteredTotalPages: pages }),
+  setFilteredBothTotalPages: (pages) => set({ filteredBothTotalPages: pages }),
   setFavoritesTotalPages: (pages) => set({ favoritesTotalPages: pages }),
   setWatchesTotalPages: (pages) => set({ watchesTotalPages: pages }),
   fetchFavoritesPagination: async () => {
