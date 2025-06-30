@@ -2,7 +2,28 @@
 import axios from "axios";
 import { Media } from "@/entities/media";
 
-const VITE_API_BASE_URL = import.meta.env.VITE_API_BASE_URL; // Update this with your backend URL
+// Get API base URL from environment with fallback
+const getApiBaseUrl = () => {
+  const envUrl = import.meta.env.VITE_API_BASE_URL;
+
+  // If no environment variable is set, use different defaults based on environment
+  if (!envUrl) {
+    if (import.meta.env.PROD) {
+      // In production, you need to set VITE_API_BASE_URL in Vercel environment variables
+      console.error(
+        "⚠️ VITE_API_BASE_URL is not set in production environment"
+      );
+      return ""; // This will cause relative requests to fail, which is better than localhost
+    } else {
+      // In development, default to localhost
+      return "http://localhost:8000";
+    }
+  }
+
+  return envUrl;
+};
+
+const VITE_API_BASE_URL = getApiBaseUrl();
 
 // Create axios instance with auth header
 const api = axios.create({
@@ -17,6 +38,23 @@ api.interceptors.request.use((config) => {
   }
   return config;
 });
+
+// Add response interceptor for better error handling
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.code === "NETWORK_ERR" || error.message?.includes("CORS")) {
+      console.error(
+        "🚨 Network/CORS Error: Make sure your backend is running and CORS is configured properly.",
+        "\n   Backend URL:",
+        VITE_API_BASE_URL,
+        "\n   Error:",
+        error.message
+      );
+    }
+    return Promise.reject(error);
+  }
+);
 
 // --------------------------Favorites API---------------------------
 
