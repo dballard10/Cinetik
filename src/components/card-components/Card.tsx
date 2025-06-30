@@ -24,7 +24,8 @@ const Card = ({
   isFavorite,
   isWatched,
 }: CardProps) => {
-  const setSelectedShow = useMediaStore((state) => state.setSelectedShow);
+  const { setSelectedShowWithStatus, getFavoriteStatus, getWatchedStatus } =
+    useMediaStore();
 
   const media_type = ["tv", "movie"].includes(rawMediaType)
     ? (rawMediaType as "tv" | "movie")
@@ -34,9 +35,14 @@ const Card = ({
 
   const handleCardClick = () => {
     if (!isLoading && !error && content) {
-      setSelectedShow(content as any);
+      // Use the new method that applies centralized state
+      setSelectedShowWithStatus(content as any);
     }
   };
+
+  // Get current status from centralized store for the buttons
+  const currentIsFavorite = getFavoriteStatus(id);
+  const currentIsWatched = getWatchedStatus(id);
 
   // Create a proper Media object for the buttons with the correct props
   const mediaForButtons: Media = {
@@ -44,8 +50,8 @@ const Card = ({
     name,
     backdrop_path,
     media_type,
-    isFavorite: isFavorite || false,
-    isWatched: isWatched || false,
+    isFavorite: currentIsFavorite,
+    isWatched: currentIsWatched,
     vote_average: content?.vote_average || 0,
     vote_count: content?.vote_count || 0,
   };
@@ -66,15 +72,17 @@ const Card = ({
       />
       <div
         className={`absolute top-2 left-2 z-10 rounded-full transition-opacity duration-300 ${
-          isWatched ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-        } ${isWatched ? "" : "group-hover:shadow"}`}
+          currentIsWatched ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+        } ${currentIsWatched ? "" : "group-hover:shadow"}`}
       >
         <WatchedButton media={mediaForButtons} />
       </div>
       <div
         className={`absolute top-2 right-2 z-10 rounded-full transition-opacity duration-300 ${
-          isFavorite ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-        } ${isFavorite ? "" : "group-hover:shadow"}`}
+          currentIsFavorite
+            ? "opacity-100"
+            : "opacity-0 group-hover:opacity-100"
+        } ${currentIsFavorite ? "" : "group-hover:shadow"}`}
       >
         <FavoritesButton media={mediaForButtons} />
       </div>

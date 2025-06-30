@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { Media } from "@/entities/media";
 import { watchesApi, favoritesApi } from "@/services/api-client";
 import { usePaginationStore } from "@/hooks/use-pagination-store";
+import useMediaStore from "@/hooks/use-media-store";
 
 interface WatchedButtonProps {
   media: Media;
@@ -14,10 +15,19 @@ const WatchedButton = ({ media }: WatchedButtonProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const { fetchWatchesPagination, fetchFavoritesPagination } =
     usePaginationStore();
+  const {
+    getWatchedStatus,
+    setWatchedStatus,
+    getFavoriteStatus,
+    setFavoriteStatus,
+  } = useMediaStore();
 
   if (!media) {
     return null;
   }
+
+  // Get the current watched status from centralized state
+  const isWatched = getWatchedStatus(media.id);
 
   const handleClick = async () => {
     if (isLoading) return;
@@ -25,24 +35,25 @@ const WatchedButton = ({ media }: WatchedButtonProps) => {
     setIsLoading(true);
 
     try {
-      const newWatchStatus = !media.isWatched;
+      const newWatchStatus = !isWatched;
 
       if (newWatchStatus) {
         // Adding to watched
         await watchesApi.addWatch(media);
 
         // If item is currently favorited, remove it from favorites (mutually exclusive)
-        if (media.isFavorite) {
+        const isCurrentlyFavorited = getFavoriteStatus(media.id);
+        if (isCurrentlyFavorited) {
           await favoritesApi.removeFavorite(media.id);
-          media.isFavorite = false;
+          setFavoriteStatus(media.id, false);
         }
       } else {
         // Removing from watched
         await watchesApi.removeWatch(media.id);
       }
 
-      // Update the media object after successful API call
-      media.isWatched = newWatchStatus;
+      // Update centralized state
+      setWatchedStatus(media.id, newWatchStatus);
 
       // Refresh pagination info after the operation
       await fetchWatchesPagination();
@@ -54,9 +65,7 @@ const WatchedButton = ({ media }: WatchedButtonProps) => {
     }
   };
 
-  const buttonTitle = media.isWatched
-    ? "Remove from watched"
-    : "Add to watched";
+  const buttonTitle = isWatched ? "Remove from watched" : "Add to watched";
 
   return (
     <motion.button
@@ -73,7 +82,7 @@ const WatchedButton = ({ media }: WatchedButtonProps) => {
       )}
     >
       {/* <TbEyeFilled className="absolute w-7 h-7 text-black transition-all duration-300 -translate-x-0.5 -translate-y-0.5 opacity-20" /> */}
-      {media.isWatched ? (
+      {isWatched ? (
         <TbEyeFilled className="relative w-6 h-6 text-blue-400 transition-all duration-300" />
       ) : (
         <TbEyePlus className="relative w-6 h-6 text-gray-400 group-hover:text-blue-400 transition-all duration-300" />

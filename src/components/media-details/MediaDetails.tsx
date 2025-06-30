@@ -34,21 +34,15 @@ const MediaDetails = ({ title }: { title: string }) => {
         </div>
         <Overview overview={selectedShow.overview} />
         <Separator />
-        <div className="rounded-lg grid grid-cols-2 gap-4">
-          <div className="flex justify-center">
-            <MediaGenres genres={selectedShow.genres} />
-          </div>
-          <div className="flex justify-center">
-            <MediaProviders
-              id={selectedShow.id}
-              media_type={selectedShow.media_type}
-            />
-          </div>
-          <div className="flex justify-center">
-            <MediaProductionCompanies
-              production_companies={selectedShow.production_companies}
-            />
-          </div>
+        <div className="flex flex-col sm:flex-row gap-24 justify-center">
+          <MediaGenres genres={selectedShow.genres} />
+          <MediaProviders
+            id={selectedShow.id}
+            media_type={selectedShow.media_type}
+          />
+          <MediaProductionCompanies
+            production_companies={selectedShow.production_companies}
+          />
         </div>
       </div>
       <div className="bg-gray-900 rounded-lg p-4 flex flex-col gap-4 max-h-full overflow-y-auto">

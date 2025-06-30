@@ -2,8 +2,12 @@ import { Media } from "@/entities/media";
 import { favoritesApi, watchesApi } from "@/services/api-client";
 import { useQuery } from "@tanstack/react-query";
 import UserFavoritesCard from "./UserFavoritesCard";
+import useMediaStore from "@/hooks/use-media-store";
+import { useEffect } from "react";
 
 const UserFavorites = () => {
+  const { setFavoriteStatus, setWatchedStatus } = useMediaStore();
+
   const {
     data: favorites,
     isLoading,
@@ -29,6 +33,16 @@ const UserFavorites = () => {
       return [];
     },
   });
+
+  // Sync the loaded data with centralized state
+  useEffect(() => {
+    if (favorites && favorites.length > 0) {
+      favorites.forEach((item: Media) => {
+        setFavoriteStatus(item.id, item.isFavorite);
+        setWatchedStatus(item.id, item.isWatched);
+      });
+    }
+  }, [favorites, setFavoriteStatus, setWatchedStatus]);
 
   if (isLoading) {
     return (

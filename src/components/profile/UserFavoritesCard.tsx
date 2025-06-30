@@ -26,7 +26,8 @@ const UserFavoritesCard = ({
   isFavorite,
   isWatched,
 }: UserFavoritesCardProps) => {
-  const setSelectedShow = useMediaStore((state) => state.setSelectedShow);
+  const { setSelectedShowWithStatus, getFavoriteStatus, getWatchedStatus } =
+    useMediaStore();
 
   const media_type = ["tv", "movie"].includes(rawMediaType)
     ? (rawMediaType as "tv" | "movie")
@@ -36,9 +37,13 @@ const UserFavoritesCard = ({
 
   const handleCardClick = () => {
     if (!isLoading && !error && content) {
-      setSelectedShow(content as any);
+      setSelectedShowWithStatus(content as any);
     }
   };
+
+  // Get current status from centralized store
+  const currentIsFavorite = getFavoriteStatus(id);
+  const currentIsWatched = getWatchedStatus(id);
 
   // Create a proper Media object for the buttons with the correct props
   const mediaForButtons: Media = {
@@ -46,8 +51,8 @@ const UserFavoritesCard = ({
     name,
     backdrop_path,
     media_type,
-    isFavorite: isFavorite || false,
-    isWatched: isWatched || false,
+    isFavorite: currentIsFavorite,
+    isWatched: currentIsWatched,
     vote_average: content?.vote_average || 0,
     vote_count: content?.vote_count || 0,
   };

@@ -3,9 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 import CardSkeletons from "../skeletons/CardSkeletons";
 import CardGrid from "../card-components/CardGrid";
 import { usePaginationStore } from "@/hooks/use-pagination-store";
+import useMediaStore from "@/hooks/use-media-store";
+import { useEffect } from "react";
 
 const FavoritesGrid = () => {
   const { favoritesPage } = usePaginationStore();
+  const { setFavoriteStatus, setWatchedStatus } = useMediaStore();
 
   const {
     data: favorites,
@@ -42,6 +45,16 @@ const FavoritesGrid = () => {
       return [];
     },
   });
+
+  // Sync the loaded data with centralized state
+  useEffect(() => {
+    if (favorites && favorites.length > 0) {
+      favorites.forEach((item) => {
+        setFavoriteStatus(item.id, item.isFavorite);
+        setWatchedStatus(item.id, item.isWatched);
+      });
+    }
+  }, [favorites, setFavoriteStatus, setWatchedStatus]);
 
   if (isLoading) {
     return <CardSkeletons />;
