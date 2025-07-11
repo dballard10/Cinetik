@@ -23,15 +23,15 @@ const ProfilePage = () => {
   const { data: favoritesData } = useQuery({
     queryKey: ["favorites-count"],
     queryFn: async () => {
-      const data = await favoritesApi.getFavorites(1);
-      return data?.favorites || [];
+      const data = await favoritesApi.getFavoritesLength();
+      return data;
     },
   });
   const { data: watchesData } = useQuery({
     queryKey: ["watches-count"],
     queryFn: async () => {
-      const data = await watchesApi.getWatches(1);
-      return data?.watches || [];
+      const data = await watchesApi.getWatchesLength();
+      return data;
     },
   });
   const {
