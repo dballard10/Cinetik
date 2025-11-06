@@ -1,114 +1,114 @@
 # Combined .gitignore for Cinetik Monorepo
 
 # ========================
-# Frontend (React/Node.js)
+# Cinetik-Cinetik-Frontend (React/Node.js)
 # ========================
 
 # Dependencies
-frontend/node_modules/
-frontend/.pnp
-frontend/.pnp.js
+Cinetik-Frontend/node_modules/
+Cinetik-Frontend/.pnp
+Cinetik-Frontend/.pnp.js
 
 # Testing
-frontend/coverage/
+Cinetik-Frontend/coverage/
 
 # Production
-frontend/build/
-frontend/dist/
+Cinetik-Frontend/build/
+Cinetik-Frontend/dist/
 
 # Misc
-frontend/.DS_Store
-frontend/.env
-frontend/.env.local
-frontend/.env.development.local
-frontend/.env.test.local
-frontend/.env.production.local
+Cinetik-Frontend/.DS_Store
+Cinetik-Frontend/.env
+Cinetik-Frontend/.env.local
+Cinetik-Frontend/.env.development.local
+Cinetik-Frontend/.env.test.local
+Cinetik-Frontend/.env.production.local
 
 # Logs
-frontend/npm-debug.log*
-frontend/yarn-debug.log*
-frontend/yarn-error.log*
-frontend/lerna-debug.log*
+Cinetik-Frontend/npm-debug.log*
+Cinetik-Frontend/yarn-debug.log*
+Cinetik-Frontend/yarn-error.log*
+Cinetik-Frontend/lerna-debug.log*
 
 # IDE
-frontend/.vscode/
-frontend/.idea/
+Cinetik-Frontend/.vscode/
+Cinetik-Frontend/.idea/
 
 # Vercel
-frontend/.vercel/
+Cinetik-Frontend/.vercel/
 
 # Bun
-frontend/bun.lockb
+Cinetik-Frontend/bun.lockb
 
 # ========================
-# Backend (Python/FastAPI)
+# Cinetik-Backend (Python/FastAPI)
 # ========================
 
 # Python cache
-backend/__pycache__/
-backend/*.py[cod]
-backend/*$py.class
-backend/*.so
+Cinetik-Backend/__pycache__/
+Cinetik-Backend/*.py[cod]
+Cinetik-Backend/*$py.class
+Cinetik-Backend/*.so
 
 # Virtual environments
-backend/.venv/
-backend/venv/
-backend/ENV/
-backend/env/
+Cinetik-Backend/.venv/
+Cinetik-Backend/venv/
+Cinetik-Backend/ENV/
+Cinetik-Backend/env/
 
 # Distribution / packaging
-backend/.Python
-backend/build/
-backend/develop-eggs/
-backend/dist/
-backend/downloads/
-backend/eggs/
-backend/.eggs/
-backend/lib/
-backend/lib64/
-backend/parts/
-backend/sdist/
-backend/var/
-backend/wheels/
-backend/*.egg-info/
-backend/.installed.cfg
-backend/*.egg
+Cinetik-Backend/.Python
+Cinetik-Backend/build/
+Cinetik-Backend/develop-eggs/
+Cinetik-Backend/dist/
+Cinetik-Backend/downloads/
+Cinetik-Backend/eggs/
+Cinetik-Backend/.eggs/
+Cinetik-Backend/lib/
+Cinetik-Backend/lib64/
+Cinetik-Backend/parts/
+Cinetik-Backend/sdist/
+Cinetik-Backend/var/
+Cinetik-Backend/wheels/
+Cinetik-Backend/*.egg-info/
+Cinetik-Backend/.installed.cfg
+Cinetik-Backend/*.egg
 
 # PyInstaller
-backend/*.manifest
-backend/*.spec
+Cinetik-Backend/*.manifest
+Cinetik-Backend/*.spec
 
 # Unit test / coverage reports
-backend/htmlcov/
-backend/.tox/
-backend/.coverage
-backend/.coverage.*
-backend/.cache
-backend/nosetests.xml
-backend/coverage.xml
-backend/*.cover
-backend/.hypothesis/
-backend/.pytest_cache/
+Cinetik-Backend/htmlcov/
+Cinetik-Backend/.tox/
+Cinetik-Backend/.coverage
+Cinetik-Backend/.coverage.*
+Cinetik-Backend/.cache
+Cinetik-Backend/nosetests.xml
+Cinetik-Backend/coverage.xml
+Cinetik-Backend/*.cover
+Cinetik-Backend/.hypothesis/
+Cinetik-Backend/.pytest_cache/
 
 # Django stuff (if applicable)
-backend/*.log
-backend/local_settings.py
-backend/db.sqlite3
+Cinetik-Backend/*.log
+Cinetik-Backend/local_settings.py
+Cinetik-Backend/db.sqlite3
 
 # Flask stuff (if applicable)
-backend/instance/
-backend/.webassets-cache
+Cinetik-Backend/instance/
+Cinetik-Backend/.webassets-cache
 
 # Environment variables
-backend/.env
-backend/.env.local
+Cinetik-Backend/.env
+Cinetik-Backend/.env.local
 
 # IDE
-backend/.vscode/
-backend/.idea/
+Cinetik-Backend/.vscode/
+Cinetik-Backend/.idea/
 
 # uv
-backend/uv.lock
+Cinetik-Backend/uv.lock
 
 # ========================
 # Root Level
