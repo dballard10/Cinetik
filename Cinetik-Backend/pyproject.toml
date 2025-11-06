@@ -6,7 +6,6 @@ build-backend = "hatchling.build"
 name = "cinetik-backend"
 version = "0.1.0"
 description = "Backend API for Cinetik - A media exploration and networking application"
-readme = "README.md"
 requires-python = ">=3.8.1"
 license = { text = "MIT" }
 authors = [{ name = "Dylan Ballard", email = "ddballard55@gmail.com" }]

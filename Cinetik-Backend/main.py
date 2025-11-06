@@ -30,7 +30,9 @@ origins = [
     "http://localhost:3000",
     "http://localhost:8080",
     "https://cinetik.vercel.app",
-    "https://*.vercel.app"
+    "https://*.vercel.app",
+    "https://www.cinetik.app",
+    "https://cinetik.app"
 ]
 
 app.add_middleware(
