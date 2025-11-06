@@ -1,0 +1,138 @@
+# Combined .gitignore for Cinetik Monorepo
+
+# ========================
+# Frontend (React/Node.js)
+# ========================
+
+# Dependencies
+frontend/node_modules/
+frontend/.pnp
+frontend/.pnp.js
+
+# Testing
+frontend/coverage/
+
+# Production
+frontend/build/
+frontend/dist/
+
+# Misc
+frontend/.DS_Store
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# Logs
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/lerna-debug.log*
+
+# IDE
+frontend/.vscode/
+frontend/.idea/
+
+# Vercel
+frontend/.vercel/
+
+# Bun
+frontend/bun.lockb
+
+# ========================
+# Backend (Python/FastAPI)
+# ========================
+
+# Python cache
+backend/__pycache__/
+backend/*.py[cod]
+backend/*$py.class
+backend/*.so
+
+# Virtual environments
+backend/.venv/
+backend/venv/
+backend/ENV/
+backend/env/
+
+# Distribution / packaging
+backend/.Python
+backend/build/
+backend/develop-eggs/
+backend/dist/
+backend/downloads/
+backend/eggs/
+backend/.eggs/
+backend/lib/
+backend/lib64/
+backend/parts/
+backend/sdist/
+backend/var/
+backend/wheels/
+backend/*.egg-info/
+backend/.installed.cfg
+backend/*.egg
+
+# PyInstaller
+backend/*.manifest
+backend/*.spec
+
+# Unit test / coverage reports
+backend/htmlcov/
+backend/.tox/
+backend/.coverage
+backend/.coverage.*
+backend/.cache
+backend/nosetests.xml
+backend/coverage.xml
+backend/*.cover
+backend/.hypothesis/
+backend/.pytest_cache/
+
+# Django stuff (if applicable)
+backend/*.log
+backend/local_settings.py
+backend/db.sqlite3
+
+# Flask stuff (if applicable)
+backend/instance/
+backend/.webassets-cache
+
+# Environment variables
+backend/.env
+backend/.env.local
+
+# IDE
+backend/.vscode/
+backend/.idea/
+
+# uv
+backend/uv.lock
+
+# ========================
+# Root Level
+# ========================
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment
+.env
+.env.local
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
