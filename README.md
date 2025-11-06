@@ -1,6 +1,6 @@
 # Cinetik
 
-A full-stack media exploration and networking application that allows users to track their favorite movies and TV shows, maintain watchlists, connect with friends, and share reviews. Built with React, TypeScript, and FastAPI.
+Full-stack media tracking and social web app for movies and TV shows. Users track favorites and manage watchlists. The frontend is built with React, TypeScript, Tailwind CSS, and Zustand, and is deployed on Vercel. The backend uses FastAPI and PostgreSQL, exposing a RESTful API for favorites and watchlists.
 
 ## 🎬 Features
 
@@ -14,7 +14,7 @@ A full-stack media exploration and networking application that allows users to t
 
 ## 🚀 Live Demo
 
-Check out the live application: [https://cinetik.vercel.app/](https://cinetik.vercel.app/)
+Check out the live application: [https://cinetik.app/](https://cinetik.app/)
 
 ## 📁 Project Structure
 
@@ -22,12 +22,12 @@ This is a monorepo containing both the frontend and backend:
 
 ```
 Cinetik/
-├── frontend/          # React + TypeScript frontend
+├── Cinetik-Frontend/          # React + TypeScript frontend
 │   ├── src/
 │   ├── public/
 │   ├── package.json
 │   └── vite.config.ts
-├── backend/           # FastAPI backend
+├── Cinetik-Backend/           # FastAPI backend
 │   ├── main.py
 │   ├── models/
 │   ├── pyproject.toml
@@ -38,6 +38,7 @@ Cinetik/
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - **React 18** - UI library
 - **TypeScript** - Type safety
 - **Vite** - Build tool and dev server
@@ -49,6 +50,7 @@ Cinetik/
 - **Zustand** - State management
 
 ### Backend
+
 - **FastAPI** - Modern Python web framework
 - **Python 3.8+** - Programming language
 - **Pydantic** - Data validation
@@ -77,7 +79,7 @@ cd Cinetik
 ### 2. Backend Setup
 
 ```bash
-cd backend
+cd Cinetik-Backend
 
 # Using uv (recommended)
 uv sync
@@ -95,7 +97,7 @@ pip install -r requirements.txt
 
 #### Configure Environment Variables
 
-Create a `.env` file in the `backend/` directory:
+Create a `.env` file in the `Cinetik-Backend/` directory:
 
 ```env
 DATABASE_URL=postgresql://user:password@localhost:5432/cinetik
@@ -123,7 +125,7 @@ The API will be available at `http://localhost:8000`
 ### 3. Frontend Setup
 
 ```bash
-cd frontend
+cd Cinetik-Frontend
 
 # Install dependencies
 npm install
@@ -140,20 +142,20 @@ The frontend will be available at `http://localhost:8080` (or the port shown in 
 
 #### Configure API Endpoint
 
-If your backend is running on a different port, update the API endpoint in `frontend/src/services/api-client.ts`
+If your backend is running on a different port, update the API endpoint in `Cinetik-Frontend/src/services/api-client.ts`
 
 ### 4. Build for Production
 
 #### Frontend
 
 ```bash
-cd frontend
+cd Cinetik-Frontend
 npm run build
 # or
 yarn build
 ```
 
-Production files will be in the `frontend/dist/` directory.
+Production files will be in the `Cinetik-Frontend/dist/` directory.
 
 #### Backend
 
@@ -166,17 +168,20 @@ uvicorn main:app --host 0.0.0.0 --port 8000
 ## 📚 API Endpoints
 
 ### Favorites
+
 - `GET /favorites` - Get all favorite media items
 - `POST /favorites` - Add a new favorite
 - `DELETE /favorites/{media_id}` - Remove a favorite
 - `GET /favorites/is-favorite/{media_id}` - Check if media is favorited
 
 ### Watchlist
+
 - `GET /watches` - Get all watchlist items
 - `POST /watches` - Add item to watchlist
 - `DELETE /watches/{media_id}` - Remove from watchlist
 
 ### Friends
+
 - `GET /friends` - Get friends list
 - `POST /friends` - Add a friend
 - `DELETE /friends/{user_id}` - Remove a friend
@@ -188,7 +193,7 @@ For complete API documentation, visit `http://localhost:8000/docs` when the back
 ### Frontend Development
 
 ```bash
-cd frontend
+cd Cinetik-Frontend
 npm run dev          # Start dev server
 npm run build        # Build for production
 npm run lint         # Run ESLint
@@ -198,7 +203,7 @@ npm run preview      # Preview production build
 ### Backend Development
 
 ```bash
-cd backend
+cd Cinetik-Backend
 
 # Run with auto-reload
 uvicorn main:app --reload
@@ -221,7 +226,7 @@ flake8 .
 ### Frontend Structure
 
 ```
-frontend/
+Cinetik-Frontend/
 ├── src/
 │   ├── components/      # React components
 │   │   ├── card-components/
@@ -242,7 +247,7 @@ frontend/
 ### Backend Structure
 
 ```
-backend/
+Cinetik-Backend/
 ├── main.py             # FastAPI application entry point
 ├── config.py           # Configuration settings
 ├── database.py         # Database connection
@@ -261,17 +266,18 @@ backend/
 ### CORS Settings
 
 The backend is configured to allow requests from:
+
 - `http://localhost:3000`
 - `http://localhost:8080`
 - `https://cinetik.vercel.app`
 
-To modify CORS settings, update the `origins` list in `backend/main.py`.
+To modify CORS settings, update the `origins` list in `Cinetik-Backend/main.py`.
 
 ## 📝 Environment Variables
 
 ### Backend
 
-Create `backend/.env`:
+Create `Cinetik-Backend/.env`:
 
 ```env
 DATABASE_URL=postgresql://user:password@localhost:5432/cinetik
@@ -279,7 +285,7 @@ DATABASE_URL=postgresql://user:password@localhost:5432/cinetik
 
 ### Frontend
 
-Create `frontend/.env` (if needed):
+Create `Cinetik-Frontend/.env` (if needed):
 
 ```env
 VITE_API_URL=http://localhost:8000
@@ -289,11 +295,12 @@ VITE_API_URL=http://localhost:8000
 
 ### Frontend (Vercel)
 
-The frontend is configured for Vercel deployment. See `frontend/vercel.json` for configuration.
+The frontend is configured for Vercel deployment. See `Cinetik-Frontend/vercel.json` for configuration.
 
 ### Backend
 
 Deploy the FastAPI backend to any platform that supports Python:
+
 - **Heroku**
 - **Railway**
 - **Render**
@@ -320,7 +327,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 **Dylan Ballard**
 
 - Email: ddballard55@gmail.com
-- GitHub: [@dylanballard](https://github.com/dylanballard)
+- GitHub: [@dballard10](https://github.com/dballard10)
 
 ## 🙏 Acknowledgments
 
@@ -329,6 +336,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
-Made with ❤️ by Dylan Ballard
-
-
+Made by Dylan Ballard
