@@ -1,118 +1,25 @@
-# Combined .gitignore for Cinetik Monorepo
-
-# ========================
-# Cinetik-Cinetik-Frontend (React/Node.js)
-# ========================
-
 # Dependencies
-Cinetik-Frontend/node_modules/
-Cinetik-Frontend/.pnp
-Cinetik-Frontend/.pnp.js
+node_modules/
 
 # Testing
-Cinetik-Frontend/coverage/
+coverage/
 
 # Production
-Cinetik-Frontend/build/
-Cinetik-Frontend/dist/
+build/
+dist/
 
-# Misc
-Cinetik-Frontend/.DS_Store
-Cinetik-Frontend/.env
-Cinetik-Frontend/.env.local
-Cinetik-Frontend/.env.development.local
-Cinetik-Frontend/.env.test.local
-Cinetik-Frontend/.env.production.local
+# Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # Logs
-Cinetik-Frontend/npm-debug.log*
-Cinetik-Frontend/yarn-debug.log*
-Cinetik-Frontend/yarn-error.log*
-Cinetik-Frontend/lerna-debug.log*
-
-# IDE
-Cinetik-Frontend/.vscode/
-Cinetik-Frontend/.idea/
-
-# Vercel
-Cinetik-Frontend/.vercel/
-
-# Bun
-Cinetik-Frontend/bun.lockb
-
-# ========================
-# Cinetik-Backend (Python/FastAPI)
-# ========================
-
-# Python cache
-Cinetik-Backend/__pycache__/
-Cinetik-Backend/*.py[cod]
-Cinetik-Backend/*$py.class
-Cinetik-Backend/*.so
-
-# Virtual environments
-Cinetik-Backend/.venv/
-Cinetik-Backend/venv/
-Cinetik-Backend/ENV/
-Cinetik-Backend/env/
-
-# Distribution / packaging
-Cinetik-Backend/.Python
-Cinetik-Backend/build/
-Cinetik-Backend/develop-eggs/
-Cinetik-Backend/dist/
-Cinetik-Backend/downloads/
-Cinetik-Backend/eggs/
-Cinetik-Backend/.eggs/
-Cinetik-Backend/lib/
-Cinetik-Backend/lib64/
-Cinetik-Backend/parts/
-Cinetik-Backend/sdist/
-Cinetik-Backend/var/
-Cinetik-Backend/wheels/
-Cinetik-Backend/*.egg-info/
-Cinetik-Backend/.installed.cfg
-Cinetik-Backend/*.egg
-
-# PyInstaller
-Cinetik-Backend/*.manifest
-Cinetik-Backend/*.spec
-
-# Unit test / coverage reports
-Cinetik-Backend/htmlcov/
-Cinetik-Backend/.tox/
-Cinetik-Backend/.coverage
-Cinetik-Backend/.coverage.*
-Cinetik-Backend/.cache
-Cinetik-Backend/nosetests.xml
-Cinetik-Backend/coverage.xml
-Cinetik-Backend/*.cover
-Cinetik-Backend/.hypothesis/
-Cinetik-Backend/.pytest_cache/
-
-# Django stuff (if applicable)
-Cinetik-Backend/*.log
-Cinetik-Backend/local_settings.py
-Cinetik-Backend/db.sqlite3
-
-# Flask stuff (if applicable)
-Cinetik-Backend/instance/
-Cinetik-Backend/.webassets-cache
-
-# Environment variables
-Cinetik-Backend/.env
-Cinetik-Backend/.env.local
-
-# IDE
-Cinetik-Backend/.vscode/
-Cinetik-Backend/.idea/
-
-# uv
-Cinetik-Backend/uv.lock
-
-# ========================
-# Root Level
-# ========================
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
 
 # OS files
 .DS_Store
@@ -125,14 +32,12 @@ Thumbs.db
 *.swo
 *~
 
-# Environment
-.env
-.env.local
+# Vercel
+.vercel/
 
-# Logs
-*.log
+# Bun
+bun.lockb
 
 # Temporary files
 *.tmp
 *.temp
-
