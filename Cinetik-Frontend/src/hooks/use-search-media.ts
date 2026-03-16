@@ -33,8 +33,6 @@ const useSearchMedia = (query: string, media_type: string) => {
           vote_average: item.vote_average,
           vote_count: item.vote_count,
           media_type: media_type,
-          isFavorite: false,
-          isWatched: false,
         })
       );
 

@@ -47,8 +47,6 @@ const useFilteredMedia = (
           vote_count: item.vote_count,
           vote_average: item.vote_average,
           media_type: media_type,
-          isFavorite: false,
-          isWatched: false,
         })
       );
       return mediaItems;

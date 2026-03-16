@@ -36,8 +36,6 @@ const useHighestRatedMovies = () => {
           vote_average: item.vote_average,
           vote_count: item.vote_count,
           media_type: "movie",
-          isFavorite: false,
-          isWatched: false,
         })
       );
       return mediaItems;

@@ -1,5 +1,4 @@
 import Rating from "./Rating";
-import FavoritesButton from "../card-components/FavoritesButton";
 import MediaImages from "./Images";
 import MediaType from "../card-components/MediaType";
 import MediaTrailer from "./Trailer";
@@ -9,7 +8,6 @@ import MediaGenres from "./MediaGenres";
 import MediaProductionCompanies from "./MediaProductionCompanies";
 import MediaProviders from "./MediaProviders";
 import Separator from "../page-components/Separator";
-import WatchedButton from "../card-components/WatchedButton";
 import useMediaStore from "@/hooks/use-media-store";
 import Runtime from "./Runtime";
 
@@ -28,8 +26,6 @@ const MediaDetails = ({ title }: { title: string }) => {
           </div>
           <div className="flex gap-2">
             <Rating rating={selectedShow.vote_average} />
-            <WatchedButton media={selectedShow} />
-            <FavoritesButton media={selectedShow} />
           </div>
         </div>
         <Overview overview={selectedShow.overview} />

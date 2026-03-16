@@ -12,17 +12,12 @@ interface MediaState {
     vote_count: number;
     media_type: "tv" | "movie";
     release_date: string;
-    isFavorite: boolean;
-    isWatched: boolean;
     runtime: number;
     genres: { id: number; name: string }[];
     production_companies: { id: number; name: string }[];
     production_countries: { iso_3166_1: string; name: string }[];
     spoken_languages: { iso_639_1: string; name: string }[];
   };
-  // Centralized favorites and watched state
-  favoritesMap: Record<number, boolean>; // mediaId -> isFavorite
-  watchedMap: Record<number, boolean>; // mediaId -> isWatched
   selectedGenres: {
     movieIds: number[];
     tvIds: number[];
@@ -40,18 +35,6 @@ interface MediaState {
   searchQuery: string;
   setSelectedShow: (show: MediaState["selectedShow"]) => void;
   clearSelectedShow: () => void;
-  // Favorites management
-  setFavoriteStatus: (mediaId: number, isFavorite: boolean) => void;
-  getFavoriteStatus: (mediaId: number) => boolean;
-  clearFavorites: () => void;
-  // Watched management
-  setWatchedStatus: (mediaId: number, isWatched: boolean) => void;
-  getWatchedStatus: (mediaId: number) => boolean;
-  clearWatched: () => void;
-  // Enhanced setSelectedShow that applies centralized state
-  setSelectedShowWithStatus: (
-    show: Omit<MediaState["selectedShow"], "isFavorite" | "isWatched">
-  ) => void;
   addSelectedGenre: (movieId: number, tvId: number, name: string) => void;
   removeSelectedGenre: (movieId: number, tvId: number, name: string) => void;
   clearSelectedGenres: () => void;
@@ -67,7 +50,7 @@ interface MediaState {
 
 const useMediaStore = create<MediaState>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       selectedShow: {
         id: 0,
         name: "",
@@ -78,16 +61,12 @@ const useMediaStore = create<MediaState>()(
         vote_count: 0,
         media_type: "tv",
         release_date: "",
-        isFavorite: false,
-        isWatched: false,
         runtime: 0,
         genres: [],
         production_companies: [],
         production_countries: [],
         spoken_languages: [],
       },
-      favoritesMap: {},
-      watchedMap: {},
       selectedGenres: {
         movieIds: [],
         tvIds: [],
@@ -116,8 +95,6 @@ const useMediaStore = create<MediaState>()(
             vote_count: 0,
             media_type: "tv",
             release_date: "",
-            isFavorite: false,
-            isWatched: false,
             runtime: 0,
             genres: [],
             production_companies: [],
@@ -125,46 +102,6 @@ const useMediaStore = create<MediaState>()(
             spoken_languages: [],
           },
         }),
-      // Favorites management
-      setFavoriteStatus: (mediaId, isFavorite) =>
-        set((state) => ({
-          favoritesMap: { ...state.favoritesMap, [mediaId]: isFavorite },
-          // Update selectedShow if it's the same media
-          selectedShow:
-            state.selectedShow.id === mediaId
-              ? { ...state.selectedShow, isFavorite }
-              : state.selectedShow,
-        })),
-      getFavoriteStatus: (mediaId) => get().favoritesMap[mediaId] ?? false,
-      clearFavorites: () => set({ favoritesMap: {} }),
-
-      // Watched management
-      setWatchedStatus: (mediaId, isWatched) =>
-        set((state) => ({
-          watchedMap: { ...state.watchedMap, [mediaId]: isWatched },
-          // Update selectedShow if it's the same media
-          selectedShow:
-            state.selectedShow.id === mediaId
-              ? { ...state.selectedShow, isWatched }
-              : state.selectedShow,
-        })),
-      getWatchedStatus: (mediaId) => get().watchedMap[mediaId] ?? false,
-      clearWatched: () => set({ watchedMap: {} }),
-
-      // Enhanced setSelectedShow that applies centralized state
-      setSelectedShowWithStatus: (show) => {
-        const state = get();
-        const isFavorite = state.favoritesMap[show.id] ?? false;
-        const isWatched = state.watchedMap[show.id] ?? false;
-
-        set({
-          selectedShow: {
-            ...show,
-            isFavorite,
-            isWatched,
-          },
-        });
-      },
       addSelectedGenre: (movieId, tvId, name) =>
         set((state) => ({
           selectedGenres: {
@@ -242,8 +179,6 @@ const useMediaStore = create<MediaState>()(
       name: "media-store",
       partialize: (state) => ({
         selectedShow: state.selectedShow,
-        favoritesMap: state.favoritesMap,
-        watchedMap: state.watchedMap,
       }),
     }
   )

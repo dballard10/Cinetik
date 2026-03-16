@@ -6,12 +6,10 @@ const GridHeading = ({
   title,
   page,
   setPage,
-  totalPages,
 }: {
   title: string;
   page: number;
   setPage: (page: number) => void;
-  totalPages?: number;
 }) => {
   const {
     highestRatedMoviesTotalPages,
@@ -24,13 +22,8 @@ const GridHeading = ({
     filteredBothTotalPages,
   } = usePaginationStore();
 
-  // Determine if this title should show pagination and get appropriate total pages
   const getPaginationInfo = () => {
     switch (title) {
-      case "Your Favorites":
-      case "Your Watches":
-        return { shouldShow: true, total: totalPages || 1 };
-
       case "Trending Movies":
         return { shouldShow: true, total: trendingMoviesTotalPages };
 
@@ -54,7 +47,6 @@ const GridHeading = ({
         return { shouldShow: true, total: filteredBothTotalPages };
 
       default:
-        // Handle search results
         if (title.startsWith("Search Results for")) {
           return { shouldShow: true, total: searchTotalPages };
         }

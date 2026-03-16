@@ -22,8 +22,6 @@ const CardGrid = ({ media: content }: CardGridProps) => {
             name={item.name}
             backdrop_path={item.backdrop_path}
             media_type={item.media_type as "tv" | "movie"}
-            isFavorite={item.isFavorite}
-            isWatched={item.isWatched}
           />
         );
       })}

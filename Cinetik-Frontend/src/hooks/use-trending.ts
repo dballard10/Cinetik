@@ -33,8 +33,6 @@ const useTrending = () => {
           vote_average: item.vote_average,
           vote_count: item.vote_count,
           media_type: item.media_type,
-          isFavorite: false,
-          isWatched: false,
         })
       );
       return mediaItems;
